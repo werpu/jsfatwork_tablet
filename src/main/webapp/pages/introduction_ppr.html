@@ -1,0 +1,767 @@
+        
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+
+        <head>
+    
+       <title>JSFAtWork, JSF 2.0 und Apache MyFaces</title>
+       <meta name="description" content="JavaServer Faces 2.0 Grundlagen, Tutorial, JSF2, JSF, Trinidad, Author: Martin Marinschek "/>
+       <meta name="keywords" content="JSF, JSF 2.0, Java Server Faces, Einfuehrung in JSF, JSF Erfolgreich einsetze, Martin Marinschek, Tomahawk, Trinidad, Irian Solutions, HTML-Dokument" />
+       <meta http-equiv="content-language" content="de"/>
+    
+    
+        <!-- =================================== style definition section begin =================================== -->
+            <link  type = "text/css" rel="stylesheet" href="../styles/style.css"/>
+            <!--[if IE 6]>
+            <link  type = "text/css" rel="stylesheet" href="../styles/style_ie6.css"/>
+            <![endif]-->
+            <!--[if gte IE 7]>
+            <link  type = "text/css" rel="stylesheet" href="../styles/style_ie7.css"/>
+            <![endif]-->
+            <link rel="stylesheet" type="text/css" href="../styles/style_print.css" media="print"/>
+
+            <style type="text/css">
+                @import "../scripts/dojo/dojo/resources/dojo.css";
+                @import "../scripts/dojo/dijit/themes/tundra/tundra.css";
+                @import "../scripts/dojo/dijit/themes/soria/soria.css";
+            </style>
+        <!-- =================================== style definition section end =================================== -->
+    
+        <!-- =================================== script definition section begin =================================== -->
+
+             <script src="http://www.google.com/jsapi?key=ABQIAAAASHquBIkpjbUpihRLkprZfhR8mwo3ZqwGzZYPmntNJkJKpIS0dxQXdZ1LdtCu6PTk7k0wRkDsk3dwlQ" type="text/javascript"></script>
+             
+             <script type="text/javascript">
+                google.load("search", "1");
+                var djConfig = {
+                    isDebug:false,
+                    parseOnLoad:true
+                };
+             </script>
+             <script type = "text/javascript" src = "../scripts/dojo/dojo/dojo.js"></script>
+             <script type = "text/javascript" src = "../scripts/dojo/dojo/myfacesdojo.js"></script>
+             <script type="text/javascript" src="../scripts/googlesearch.js"></script>
+
+
+             <script type="text/javascript">
+                 dojo.require("dijit.Tooltip");
+                 dojo.require("dijit.layout.ContentPane");
+                 dojo.require("dijit.layout.AccordionContainer");
+                 dojo.require("dojo.data.ItemFileReadStore");
+                 dojo.require("dijit.Tree");
+                dojo.require("dojox.data.GoogleSearchStore");
+
+             </script>
+             <script type = "text/javascript" src="../scripts/script.js"></script>
+             <script type="text/javascript">
+              dojo.addOnLoad(handleBookmarking);
+            </script>
+
+            <script type="text/javascript">
+                /*google analytics*/
+                var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                </script>
+                <script type="text/javascript">
+                try {
+                var pageTracker = _gat._getTracker("UA-8096844-1");
+                pageTracker._trackPageview();
+                } catch(err) {}
+            </script>
+
+        <!-- =================================== script definition section end =================================== -->
+
+    </head>
+            
+        <body class="tundra">
+
+
+
+        <h1> <a class='latex-index-anchor' name='!idx:/introduction.html:1' >1 Einf&uuml;hrung in JavaServer Faces</a></h1>
+<span id='_footnote_marker_1' class='latex-footnote-marker'>Vielfalt der Technologien:</span>
+                <span class='latex-textit'>JavaServer Faces</span>  (JSF) ist eine moderne Technologie
+zur Entwicklung von Webanwendungen. Allerdings steht sie nicht allein auf weiter Flur
+- es gibt Dutzende als Open Source ver&ouml;ffentlichte und Hunderte propriet&auml;re Frameworks
+f&uuml;r die Entwicklung von Webapplikationen alleine im Java-Bereich, andere
+Programmiersprachen au&szlig;er Acht gelassen. Der Elefant unter diesen Rahmenwerken ist
+im Java-Bereich sicher Apache Struts, aber auch Apache Cocoon oder Apache Tapestry sind
+sehr erfolgreich. Die erste Frage ist also, warum sich solch eine Vielfalt von Frameworks
+entwickelt hat und weshalb die Notwendigkeit f&uuml;r die Spezifizierung der
+ <span class='latex-textit'>JavaServer-Faces</span> -Technologie entstand - immerhin gibt es doch mit der Servlet-
+und JSP-Technologie schon eine solide Basis f&uuml;r die dynamische Erstellung von Webseiten.
+Die Beschreibung der geschichtlichen Entwicklung der Webprogrammierung wird hier zum
+Verst&auml;ndnis beitragen.<br /> <h2><a class='latex-index-anchor' name='!idx:/introduction.html:1.1' >1.1 Kurzgeschichte der Webentwicklung</a> </h2>
+<span id='_footnote_marker_2' class='latex-footnote-marker'>HTML und HTTP:</span>
+                 Alles begann mit der &Uuml;bertragung der ersten Seite in Hypertext
+Markup Language (HTML) &uuml;ber das Hypertext Transfer Protocol (HTTP)
+im August 1991. Nur einige wenige Vision&auml;re haben damals erahnt, welche Entwicklung das
+World Wide Web &uuml;ber die Jahre nehmen w&uuml;rde. Exponentielles Wachstum war dem World Wide Web
+in die Wiege gelegt worden - dies galt f&uuml;r die Verbreitung genauso wie f&uuml;r die
+technologische Entwicklung. Anfangs war HTML eine einfache Sprache, die nur zur
+Auszeichnung der Bedeutung von Textteilen geeignet war. Durch die vielfache Anwendung in
+den verschiedensten Bereichen wurde HTML immer mehr erweitert, und die Entwicklung hin
+zur Layoutsprache war unabwendbar. So entstand aus den wenigen Elementen der ersten
+HTML-Version ein undurchdringlicher Dschungel an verschiedensten Auszeichnungselementen f&uuml;r
+die unterschiedlichsten Zwecke. Ein Zustand, der ge&auml;ndert werden musste; als Erg&auml;nzung zur
+HTML wurde die Layoutsprache CSS (Cascading Style Sheets) geboren und HTML wieder zur
+Bedeutungsauszeichnung verwendet. Begleitend zu diesen statischen Sprachen wurde auch das
+dynamische Element durch die Verwendung der Programmiersprache JavaScript im Webbrowser
+immer wichtiger.<br /> <span id='_footnote_marker_3' class='latex-footnote-marker'>Server:</span>
+                 Zur selben Zeit war eine &auml;hnliche Revolution der Sprachen und
+Skriptsprachen am Server im Gange - unz&auml;hlige serverseitige Technologien k&auml;mpften um
+die Gunst der Webentwickler, Perl, Phyton, PHP, Ruby und nat&uuml;rlich Java sind nur einige
+Beispiele. Kein Wunder, dass durch diese hohe Anzahl an involvierten Technologien die
+Entwicklung von gro&szlig;en, hochdynamischen Webanwendungen immer komplexer wurde - die
+Entwickler mussten bei der Bew&auml;ltigung dieser Komplexit&auml;t unterst&uuml;tzt werden.<br /> <span id='_footnote_marker_4' class='latex-footnote-marker'>Servlets:</span>
+                 Im Java-Bereich, und auf diesen wollen wir uns ab
+jetzt konzentrieren, war die Entwicklung der Servlet-Technologie 1997 der erste Schritt
+zur dynamischen Generierung von HTML-Seiten am Server. Im Wesentlichen beruht diese
+Technologie darauf, dass in den Java-Code Befehle eingebunden werden, die zur Erzeugung
+von HTML dienen. Praktisch bedeutet das den Aufruf der Funktion<br />                     <pre><code>println("&lt;html&gt;text&lt;/html&gt;");
+</code></pre>
+                 auf einem  <span class='latex-texttt'>OutputStream</span>  wie in Listing
+ <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-servlet-code");' href='./introduction.html#!idx:/introduction.html:fig:example-servlet-code'> Beispiel f&uuml;r ein einfaches
+Servlet. Hier wird die GET-Methode der HTTP-Anfrage behandelt. </a> . Sie k&ouml;nnen sich sehr leicht vorstellen, dass diese
+Erstellung von HTML aus ganz normalem Java-Code bei langen HTML-Passagen schwer
+verst&auml;ndlich und un&uuml;bersichtlich wird. In einem zweiten Schritt entstanden daher
+Hilfsklassen, die das Schreiben von HTML-Tags durch den Aufruf gewisser Methoden
+erleichterten. Die Erstellung von HTML beschr&auml;nkte sich somit auf den Aufruf dieser
+Methoden mit der &Uuml;bergabe von Zeichenketten f&uuml;r die Werte in den einzelnen Tags wie
+in Listing  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-servlet-utilities");' href='./introduction.html#!idx:/introduction.html:fig:example-servlet-utilities'> Beispiel f&uuml;r eine einfache (jedoch keinesfalls
+vollst&auml;ndige) Hilfsklasse zum Schreiben von
+HTML-Code, eingebettet in Servlets </a> .<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-servlet-code'></a>                     <pre><code>public class BeispielServlet extends HttpServlet {
+
+  public void doGet (
+    HttpServletRequest req,
+    HttpServletResponse res)
+      throws ServletException, IOException {
+
+      //Vom HTTP-Request kann der Entwickler sich die
+      //Parameter f&uuml;r die Verarbeitung der Anfrage holen
+      String name = req.getParameter("name");
+      String text = req.getParameter("text");
+
+      //Es wird HTML-Text an den Browser zur&uuml;ckgesendet
+      res.setContentType("text/html");
+
+      //Ein OutputStream macht es m&ouml;glich, den
+      //eigentlichen Text zu senden.
+      ServletOutputStream out = res.getOutputStream();
+
+      //Einzelne Elemente des Texts werden versendet
+      out.println("&lt;html&gt;&lt;head&gt;&lt;title&gt;");
+      out.println(name);
+      out.println("&lt;/title&gt;&lt;/head&gt;&lt;body&gt;");
+      out.println(text);
+      out.println("&lt;/body&gt;");
+      out.println("&lt;/html&gt;");
+
+      out.flush();
+   }
+}
+</code></pre>
+                </div><div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-servlet-utilities'></a>                     <pre><code>public class ServletUtility {
+
+  HttpServletResponse res;
+
+  public ServletUtility(HttpServletResponse res) {
+    this.res = res;
+  }
+
+  public void startTagNoAttributes(String tagName) {
+    res.print("&lt;");
+    res.print(tagName);
+    res.print("&gt;");
+  }
+
+  public void startTag(String tagName) {
+    res.print("&lt;");
+    res.print(tagName);
+  }
+
+  public void endTag(String tagName) {
+    res.print("&lt;/");
+    res.print(tagName);
+    res.print("&gt;");
+  }
+
+  /*Hier fehlen Methoden zur Behandlung von Attributen,
+  eingeschlossenem Text etc. Ein sehr gutes Beispiel
+  f&uuml;r solch eine Hilfsklasse wird auch von
+  der JSF-Technologie verwendet:
+  dem javax.faces.context.ResponseWriter*/
+}
+</code></pre>
+                </div> F&uuml;r komplexe HTML-Seiten war auch diese Vorgangsweise nicht optimal, und im Sinne der
+klassischen Theorie von These, Antithese und Synthese wurde diametral zu diesem Ansatz
+die  <span class='latex-textit'>JavaServer Pages</span> -(JSP-)Technologie entwickelt <span id='_footnote_marker_5' class='latex-footnote-marker'>JSP:</span>
+                 . Ein
+Beispiel in dieser Sprache findet sich in Listing  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-jsp-code");' href='./introduction.html#!idx:/introduction.html:fig:example-jsp-code'> Ein einfaches JSP-Beispiel </a> . Hier ist
+HTML die treibende Kraft und in die einzelnen Tags der HTML sind in sogenannten
+Scriptlets die Aufrufe der Java-Methoden zur Ausgabe der dynamischen Teile der
+HTML-Seite eingebunden. Dieser Ansatz erleichterte die Erstellung von komplexen
+HTML-Seiten mit viel eingebautem JavaScript-Code und einer hohen Anzahl an
+CSS-Auszeichnungen ungemein.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-jsp-code'></a>                     <pre><code>&lt;@ page language="java" &gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;=request.getParameter("name");&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;=request.getParameter("text");&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                </div> Alles, was "benutzt" werden kann, kann allerdings auch "missbraucht" werden, und
+genau dieser Fall trat f&uuml;r die JSP-Technologie ein. Die Entwickler begannen, immer mehr
+Code in die einzelnen JSP-Seiten aufzunehmen, bis erneut eine hochkomplexe Mischung aus
+HTML-Tags und Java-Code entstand; diese Mischung war genauso schlecht wartbar wie die in
+Servlet-Code eingebaute HTML-Generierung. Ein weiterer Kritikpunkt an der Verwendung von
+JSP war, dass der eingebaute Sourcecode erst zum Zeitpunkt des Anwendungsstarts im
+Applikationsserver kompiliert wurde, und viele Fehler, die normalerweise bei der
+Erstellung von Java-Klassen aus dem Sourcecode bereits beseitigt worden waren, erst zur
+Laufzeit auftraten. Die Bedeutung dieses Problems steigt selbstverst&auml;ndlich mit der Menge
+des in die JSP-Seite eingebundenen Sourcecodes.<br /> <span id='_footnote_marker_6' class='latex-footnote-marker'>Webframeworks:</span>
+                 Zur L&ouml;sung dieses Problems traten Webframeworks auf den Plan.
+Der Entwickler wird bei Benutzung eines Frameworks dazu angehalten, m&ouml;glichst gro&szlig;e Teile
+der Layoutbeschreibung in einer Seitendeklarationssprache wie JSP zu erstellen und
+gleichzeitig m&ouml;glichst wenig Funktionalit&auml;t im Sinne von Anwendungslogik zwischen die
+Elemente der Seitendeklarationssprache einzuf&uuml;gen.<br /> <span id='_footnote_marker_7' class='latex-footnote-marker'>Model-View-Controller (MVC):</span>
+                 Ein klarer Schnitt zwischen den Bereichen Modell,
+Ansicht und Steuerungslogik ist also notwendig - dieses Entwicklungsmuster wird auch
+Model-View-Controller-Muster (kurz MVC)   genannt
+und ist in Abbildung  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:einfuehrung_model_view_controller");' href='./introduction.html#!idx:/introduction.html:fig:einfuehrung_model_view_controller'> Das Model-View-Controller-Prinzip </a>  dargestellt.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:einfuehrung_model_view_controller'></a> <div class='latex-img'><img alt='' src='../grafiken/mvc.jpg' width=510 height=328 > </img></div> <div class='latex-index-anchor' > Abbildung:Das Model-View-Controller-Prinzip </div> </div><span id='_footnote_marker_8' class='latex-footnote-marker'>Model2 - MVC f&uuml;r das Web:</span>
+                 Im Webbereich, und hier insbesondere
+in der Entwicklung mit Java, hat sich eine spezielle Form dieses Musters etabliert, die
+den Namen  <span class='latex-textit'>Model2</span>  erhalten hat. Der Name  <span class='latex-textit'>Model2</span>  wurde in der
+Spezifikation des JSP-Standards gepr&auml;gt, und das Muster ist die &Uuml;bertragung des
+MVC-Ansatzes in die Welt der Webentwicklung <span id='_footnote_marker_9' class='latex-footnote-marker'>Ein ebenfalls in der
+JSP-Spezifikation gepr&auml;gter Begriff ist das <span class='latex-textit'>Model1</span>-Entwurfsmuster.
+Der Unterschied zu <span class='latex-textit'>Model2</span> ist hier, dass kein Servlet als Controller verwendet
+wird - stattdessen bleibt die Kontrolle &uuml;ber die <span class='latex-textit'>Managed-Beans</span> in der
+ausgef&uuml;hrten JSP-Datei.:</span>
+                 . Diese Form ist dem zugrunde liegenden MVC-Muster sehr &auml;hnlich,
+einzig die verschiedenen Auspr&auml;gungen von Model, View und Controller werden hier genauer
+definiert, wie in Abbildung  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:einfuehrung_model2");' href='./introduction.html#!idx:/introduction.html:fig:einfuehrung_model2'> Das Model2-Prinzip als Spezialisierung der
+Model-View-Controller-Architektur </a>  zu sehen ist. F&uuml;r fast alle mit
+Java arbeitenden Webframeworks dient das Model2-Pattern als Grundlage der Architektur.
+Als Steuerungslogik (Controller) wird dabei ein Servlet verwendet und meist ist das
+Modell in Form von Java-Klassen, h&auml;ufig als Beans oder POJOs (Plain Old Java Objects),
+ausgef&uuml;hrt. F&uuml;r die Definition der Ansicht gibt es allerdings viele M&ouml;glichkeiten - bei
+Turbine dient hierzu Velocity, bei Cocoon ein XML-Dialekt, bei Struts und auch bei JSF
+in der Basisversion eine Seitendeklaration mit  <span class='latex-textit'>JavaServer Pages</span>  (JSPs).<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:einfuehrung_model2'></a> <div class='latex-img'><img alt='' src='../grafiken/mvc-model2.jpg' width=600 height=231 > </img></div> <div class='latex-index-anchor' > Abbildung:Das Model2-Prinzip als Spezialisierung der
+Model-View-Controller-Architektur </div> </div><span id='_footnote_marker_10' class='latex-footnote-marker'>Komponenten:</span>
+                 Anfangs stand eben diese Trennung
+der einzelnen Schichten einer Applikation als h&ouml;chste Priorit&auml;t auf der Aufgabenliste
+der einzelnen Webframeworks und alle oben genannten gro&szlig;en Rahmenwerke in der
+Webentwicklung haben dieses Problem auf ihre Art und Weise gel&ouml;st. Im Laufe der Zeit
+war diese Aufteilung nicht mehr die einzige Notwendigkeit in der Webentwicklung und
+andere Aufgabenbereiche traten in den Vordergrund. Das heute am meisten diskutierte
+Problem ist die Wiederverwendbarkeit von Komponenten in Webapplikationen und hier
+haben nicht alle Webframeworks eine L&ouml;sung gefunden. Insbesondere muss in diesem
+Bereich eine klare Trennung zwischen Struts als dem bisher gr&ouml;&szlig;ten Player am Markt und
+dem Standard JSF vorgenommen werden -  <span class='latex-textit'>Struts</span>  beherrscht diese
+Komponentenorientierung nicht, w&auml;hrend JSF die Basis f&uuml;r eine komponentenorientierte
+Entwicklung bietet und einige Komponenten im Standard bereits mitbringt.<br /> <span id='_footnote_marker_11' class='latex-footnote-marker'>JSF als Standard:</span>
+                <span class='latex-textit'>JavaServer Faces</span> (JSF) als Technologie wurde dar&uuml;ber hinaus entwickelt, um die vielf&auml;ltigen und
+weit auseinanderlaufenden Ans&auml;tze zur Entwicklung von Webanwendungen unter
+Java zu b&uuml;ndeln und in eine gemeinsame Richtung zu leiten. F&uuml;r solch eine
+B&uuml;ndelung ist eine zentrale Standardisierung der Funktionalit&auml;t eines
+Webentwicklungsframeworks von Vorteil und genau diese Standardisierung wird
+im Rahmen des Java Community Process (JCP)   durchgef&uuml;hrt.<br />Der Java Community Process definiert die Rahmenbedingungen f&uuml;r die Entwicklung von
+Spezifikationen zur Erweiterung und Verbesserung der Java-Plattform. Vorschl&auml;ge f&uuml;r
+Spezifikationen werden dort in Form von Java Specification Requests (JSRs) mit einer
+fortlaufenden Nummer eingebracht. Die Arbeit an einem JSR wird von einer sogenannten
+Expert-Group durchgef&uuml;hrt. Jeder JSR durchl&auml;uft einen mehrstufigen Prozess, bis eine
+finale Version vorliegt.<br />Seit 2004 ist die Version 1.0 der  <span class='latex-textit'>JavaServer-Faces</span> -Technologie (JSR-127)
+spezifiziert. Nur wenige Monate sp&auml;ter wurde die fehlerbereinigte Version 1.1 dieses
+Standards nachgereicht. Im Jahr 2006 folgte Version 1.2 der JSF-Spezifikation (JSR-252)
+als Teil von  <span class='latex-textit'>Java EE 5</span>  und 2009 endlich die Version 2.0 (JSR-314) als Teil von
+ <span class='latex-textit'>Java EE 6</span> . Im Juli 2010 wurde Version 2.0 Revision A nachgereicht, die eine
+Reihe von Fehlern und Unzul&auml;nglichkeiten in der Spezifikation behebt. Tabelle
+ <span class='latex-unknwown-link'> tab:jsf-versions-jsrs </span>  zeigt alle JSF-Versionen mit den jeweiligen JSRs und dem
+Zeitpunkt der Ver&ouml;ffentlichung.<br /> <div class='latex-begin-block'><table border=0 class='latex-table'><thead class='latex-table-header'><tr class='latex-table-header-row'></tr><tr class='latex-table-header-row'><td class='latex-table-header-cell'>Version</td><td class='latex-table-header-cell'>JSR</td><td class='latex-table-header-cell'>Ver&ouml;ffentlichung</td></tr><tr class='latex-table-header-row'></tr></thead><tbody class='latex-table-body'><tr class='latex-table-body-row'><td class='latex-table-body-cell'>       JSF     1.0    </td><td class='latex-table-body-cell'>    JSR-127    </td><td class='latex-table-body-cell'>    M&auml;rz     2004 </td></tr><tr class='latex-table-body-row'><td class='latex-table-body-cell'>       JSF     1.1    </td><td class='latex-table-body-cell'>    JSR-127    </td><td class='latex-table-body-cell'>    Mai     2004 </td></tr><tr class='latex-table-body-row'><td class='latex-table-body-cell'>       JSF     1.2    </td><td class='latex-table-body-cell'>    JSR-252    </td><td class='latex-table-body-cell'>    Mai     2006 </td></tr><tr class='latex-table-body-row'><td class='latex-table-body-cell'>       JSF     2.0    </td><td class='latex-table-body-cell'>    JSR-314    </td><td class='latex-table-body-cell'>    Juli     2009 </td></tr><tr class='latex-table-body-row'><td class='latex-table-body-cell'>       JSF     2.0     Rev     A    </td><td class='latex-table-body-cell'>    JSR-314    </td><td class='latex-table-body-cell'>    Juli     2010       </td></tbody></table><div class='latex-begin-block'> 
+ </div></div> Version 1.2 hat sehr viel zum Erfolg von JSF beigetragen. Mittlerweile ist allerdings
+auch Version 2.0 in der Praxis angekommen: Sowohl von  <span class='latex-textit'>MyFaces</span>  als auch von
+ <span class='latex-textit'>Mojarra</span>  gibt es f&uuml;r den Produktionseinsatz geeignete Versionen.<br />Die Expert-Group hat bei der Entwicklung von JSF 2.0 sehr gute Arbeit geleistet. Sie
+hat viele neue Konzepte eingef&uuml;hrt, die das t&auml;gliche Arbeiten einfacher machen. Trotz
+vieler &Auml;nderungen hat sich an den grundlegenden Prinzipien von JSF nichts ge&auml;ndert.
+Auch JSF 2.0 f&uuml;hrt die Ease-of-Development-Strategie der Java EE-Plattform konsequent
+weiter.<br />So viel zur geschichtlichen Entwicklung der Webentwicklungsframeworks. Nach
+einem kurzen &Uuml;berblick &uuml;ber die Neuerungen von JSF 2.0 im n&auml;chsten Abschnitt
+geht es in Abschnitt  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:sec:example-mygourmet01");' href='./introduction.html#!idx:/introduction.html:sec:example-mygourmet01'> [Sektion:&nbsp; <span class='latex-textit'>MyGourmet 1</span>: Einf&uuml;hrung anhand eines Beispiels] </a>  mit einer kurzen Einf&uuml;hrung
+in die JSF-Technologie weiter.<br /> <h2><a class='latex-index-anchor' name='!idx:/introduction.html:1.2' >1.2 JSF 2.0 im &Uuml;berblick</a> </h2>
+ Zwischen der Ver&ouml;ffentlichung von  <span class='latex-textit'>JavaServer Faces</span>  1.2 im Jahr 2006 und der
+Finalisierung von Version 2.0 liegen gut drei ereignisreiche Jahre. Das ist in einem
+schnelllebigen Bereich wie der Webentwicklung eine lange Zeit, in der viele neue
+Trends und Technologien das Licht der Welt erblickten. Besonders im JSF-Umfeld hat
+sich sehr viel getan. JSF hat Schwung aufgenommen und ist zu einer der wichtigsten
+Technologien in der Java-Webentwicklung geworden. Ein gewichtiger Teil dieses Erfolgs
+ist sicherlich auf die bereits in der Spezifikation festgeschriebene Erweiterbarkeit
+von JSF zur&uuml;ckzuf&uuml;hren. Neben dem Einsatz verschiedener Komponentenbibliotheken
+lassen sich sogar grundlegende Bestandteile des Basisframeworks einfach erweitern
+und austauschen.<br />Mit der steigenden Popularit&auml;t von JSF hat sich eine sehr aktive Community entwickelt.
+JSF ist nicht mehr nur ein Webframework, sondern ein ganzes &Ouml;kosystem aufeinander
+aufbauender und sich erg&auml;nzender Technologien. In zahlreichen Projekten wurden neue
+Komponentenbibliotheken, Bibliotheken zur Integration neuer Technologien oder L&ouml;sungen
+f&uuml;r Unzul&auml;nglichkeiten und nicht adressierte Bereiche in der Spezifikation entwickelt.<br />Die Expert-Group des JSR-314 hat beim Entwurf von  <span class='latex-textit'>JavaServer Faces</span>  2.0 auch diese
+Community und die Entwickler nicht vergessen. Sie hat sich popul&auml;re Bibliotheken angesehen
+und ist auf in den letzten Jahren oft heftig diskutierte Probleme und Vorschl&auml;ge aktiv
+eingegangen. Einige der neuen Features von JSF 2.0 sind in der einen oder anderen Form
+bereits in existierende Bibliotheken integriert. Durch die Standardisierung verbessert
+sich allerdings die Kompatibilit&auml;t von Komponentenbibliotheken verschiedener Hersteller,
+was wiederum das Leben der Entwickler vereinfacht.<br />In diesem Abschnitt fassen wir kurz die neue Funktionalit&auml;t von JSF 2.0 zusammen. Wenn
+Sie bereits mit einer JSF-Version vor 2.0 Erfahrungen gesammelt haben, k&ouml;nnen Sie hier
+gezielt nach Informationen suchen.<br />Hier eine Liste der wichtigsten Neuerungen mit Referenzen auf die entsprechenden
+Stellen im Buch:<br /> <div class='latex-begin-block'><ul>    <li class='latex-list'>  Facelets wurde in den Standard aufgenommen und ist jetzt die Sprache der Wahl f&uuml;r
+  die Deklaration von Seiten. Abschnitt  <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:vdl");' href='./jsf.html#!idx:/jsf.html:sec:vdl'> Sektion:&nbsp; Seitendeklarationssprachen </a>  enth&auml;lt eine kurze Einf&uuml;hrung in
+  Seitendeklarationssprachen und erl&auml;utert den Unterschied zwischen JSP und Facelets.
+  Abschnitt  <a onClick='javascript: return dojoNav("./advanced_jsf.html#!idx:/advanced_jsf.html:sec:advanced-facelets");' href='./advanced_jsf.html#!idx:/advanced_jsf.html:sec:advanced-facelets'> Sektion:&nbsp; Advanced Facelets </a>  zeigt dann weiterf&uuml;hrende Informationen zu
+  Facelets und in Abschnitt  <a onClick='javascript: return dojoNav("./advanced_jsf.html#!idx:/advanced_jsf.html:sec:templating");' href='./advanced_jsf.html#!idx:/advanced_jsf.html:sec:templating'> Sektion:&nbsp; Templating </a>  finden Sie eine Einf&uuml;hrung in Templating.
+
+   </li><li class='latex-list'>  Eine der wichtigsten Neuerungen sind Kompositkomponenten. Sie erlauben das
+  Erstellen von eigenen Komponenten, ohne eine Zeile Java-Code zu schreiben. Wie das
+  funktioniert, wird in Abschnitt  <a onClick='javascript: return dojoNav("./custom_component.html#!idx:/custom_component.html:sec:composite-component");' href='./custom_component.html#!idx:/custom_component.html:sec:composite-component'> Sektion:&nbsp; Kompositkomponenten </a>  erl&auml;utert.
+
+   </li><li class='latex-list'>  Die Integration von Bean-Validation erlaubt eine vollst&auml;ndig metadatenbasierte
+  Validierung. Informationen dazu finden Sie in Abschnitt  <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:bean-validation");' href='./jsf.html#!idx:/jsf.html:sec:bean-validation'> Sektion:&nbsp; Bean-Validation nach JSR-303 </a> .
+
+   </li><li class='latex-list'>  Ajax ist jetzt in den Standard integriert. Eine ausf&uuml;hrliche Einf&uuml;hrung finden
+  Sie in Kapitel  <a onClick='javascript: return dojoNav("./ajax.html#!idx:/ajax.html:chap:ajax");' href='./ajax.html#!idx:/ajax.html:chap:ajax'> Kapitel:&nbsp; Ajax und JSF </a> .
+
+   </li><li class='latex-list'>  Eine Reihe neuer Annotationen macht die Konfiguration von JSF-Anwendungen so
+  einfach wie nie zuvor.
+
+   </li><li class='latex-list'>  Mit der Project-Stage kann die aktuelle Phase des Projekts im Entwicklungsprozess
+  ermittelt werden. Wie Sie davon profitieren, zeigt Abschnitt  <a onClick='javascript: return dojoNav("./advanced_jsf.html#!idx:/advanced_jsf.html:sec:project-stage");' href='./advanced_jsf.html#!idx:/advanced_jsf.html:sec:project-stage'> Sektion:&nbsp; Project-Stage </a> .
+
+   </li><li class='latex-list'>  In JSF 2.0 gibt es endlich einen standardisierten Weg, Ressourcen wie
+  Skripte oder Stylesheets zu verwalten. Die Details dazu finden Sie in Abschnitt
+   <a onClick='javascript: return dojoNav("./advanced_jsf.html#!idx:/advanced_jsf.html:sec:resources");' href='./advanced_jsf.html#!idx:/advanced_jsf.html:sec:resources'> Sektion:&nbsp; Verwaltung von Ressourcen </a> .
+
+   </li><li class='latex-list'>  System-Events bieten die M&ouml;glichkeit, auf spezielle Ereignisse im Lebenszylus zu
+  reagieren. <!--  Weiterf&uuml;hrende Informationen finden Sie in Abschnitt \ref{sec:system-events}.
+ --> 
+   </li><li class='latex-list'>  Die erweiterte Unterst&uuml;tzung von GET-Anfragen verbessert die M&ouml;glichkeit,
+  Bookmarks zu setzen. Abschnitt  <a onClick='javascript: return dojoNav("./advanced_jsf.html#!idx:/advanced_jsf.html:sec:bookmarks-get-request");' href='./advanced_jsf.html#!idx:/advanced_jsf.html:sec:bookmarks-get-request'> Sektion:&nbsp; Bookmarks und GET-Anfragen in JSF </a>  liefert die Details.
+
+   </li><li class='latex-list'>  Mit impliziter und bedingter Navigation hat der Navigationsmechanismus zwei
+  Erweiterungen erhalten, die einerseits die Navigation vereinfachen, sie andererseits
+  aber auch flexibler machen. N&auml;heres dazu finden Sie in Abschnitt  <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:navigation");' href='./jsf.html#!idx:/jsf.html:sec:navigation'> Sektion:&nbsp; Navigation </a> .
+
+   </li><li class='latex-list'>  Partial-State-Saving optimiert das Speichern des Zustands in Bezug auf
+  Speicherverbrauch und Performance. Details dazu finden Sie in Abschnitt
+   <a onClick='javascript: return dojoNav("./custom_component.html#!idx:/custom_component.html:sec:components-compclass");' href='./custom_component.html#!idx:/custom_component.html:sec:components-compclass'> Sektion:&nbsp; Komponentenklasse schreiben </a> .
+
+   </li><li class='latex-list'>  Mit dem View-Scope gibt es einen neuen G&uuml;ltigkeitsbereich f&uuml;r Managed-Beans.
+  Mehr dazu erfahren Sie in Abschnitt  <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:managed-beans");' href='./jsf.html#!idx:/jsf.html:sec:managed-beans'> Sektion:&nbsp; Managed-Beans </a> .
+
+ </li></ul></div> Nach der Vorstellung der Neuigkeiten von JSF 2.0 geht es im n&auml;chsten Abschnitt mit dem ersten
+Beispiel richtig los.<br /> <h2><a class='latex-index-anchor' name='!idx:/introduction.html:1.3' >1.3 Das erste JSF-Beispiel</a> </h2>
+<a name = '!idx:/introduction.html:sec:helloworld'> </a> JSF ist ein Standard f&uuml;r ein Webentwicklungsframework. F&uuml;r die Beschreibung der einzelnen
+Teile existiert in der Version 2.0 eine &uuml;ber 400 Seiten starke Spezifikation. Nat&uuml;rlich
+ist ein gro&szlig;er Teil davon f&uuml;r den Einstieg in die Webentwicklung mit JSF nicht notwendig,
+daher m&ouml;chten wir an dieser Stelle nur einen kurzen &Uuml;berblick &uuml;ber JSF geben. Und nichts
+erm&ouml;glicht einen besseren Einblick in eine Technologie, als ein kurzes Beispiel mit
+ebendieser zu erarbeiten.<br />  Wir werden f&uuml;r einen einfachen Start mit JSF bei unseren Beispielen auf
+das weitverbreitete Build-Werkzeug  <span class='latex-textit'>Apache Maven 2</span>  zur&uuml;ckgreifen.  <span class='latex-textit'>Maven</span> ist ein &auml;u&szlig;erst hilfreiches Mittel, um Java-basierte Projekte zu verwalten. Es kann
+vieles - unter anderem Applikationen verwalten, erstellen, verteilen, automatisch
+testen, Abh&auml;ngigkeiten verwalten und Webseiten des Projekts erstellen. Neben einer
+standardisierten Beschreibung von Projekten im  <span class='latex-textit'>Project Object Model</span> ( <span class='latex-texttt'>pom.xml</span> ) und einem standardisierten Build-Prozess bietet  <span class='latex-textit'>Maven</span>  unter
+anderem noch eine automatische Aufl&ouml;sung von Abh&auml;ngigkeiten zu anderen Projekten und
+Bibliotheken. Die Funktionalit&auml;t l&auml;sst sich zus&auml;tzlich durch verschiedenste Plug-ins
+erweitern, von denen wir in weiterer Folge einige verwenden werden.<br />Wird mit  <span class='latex-textit'>Maven 2</span>  gearbeitet, ist die Webapplikation auch aus der Kommandozeile
+heraus startbar - au&szlig;er einem simplen Editor ist keine Entwicklungsumgebung notwendig.
+Leichter geht es allemal mit einer guten Entwicklungsumgebung wie  <span class='latex-textit'>Eclipse</span> .
+ <span class='latex-textit'>Eclipse</span>  ist nicht nur ein hervorragendes Entwicklungswerkzeug f&uuml;r
+Java-Applikationen, es ist auch gleichzeitig eine Plattform, f&uuml;r die Myriaden von
+Komponenten, sogenannte  <span class='latex-textit'>Eclipse-Plug-ins</span>  existieren.  <span class='latex-textit'>Eclipse</span>  selbst
+bietet mit dem Projekt  <span class='latex-textit'>Web Tools Platform (WTP)</span>  bereits eine Basisunterst&uuml;tzung
+f&uuml;r die Entwicklung von JSF-Anwendungen an, die allerdings einige Ecken und Kanten
+aufweist. Wir werfen daher zus&auml;tzlich einen Blick auf die  <span class='latex-textit'>JBoss-Tools</span> , eine
+bereits ausgereifte Sammlung von Plug-ins und Features.<br />Bevor die Arbeit an einem JSF-Projekt beginnen kann, muss es nat&uuml;rlich erst angelegt
+werden. Wie das funktioniert, zeigen wir Ihnen im n&auml;chsten Abschnitt. Den kompletten
+Quellcode des  <span class='latex-textit'>Hello World</span> -Beispiels finden Sie unter
+ <a href='http://jsfatwork.irian.at'>http://jsfatwork.irian.at</a> .<br /> <h3><a class='latex-index-anchor' name='!idx:/introduction.html:1.3.1'>1.3.1 Erstellen eines JSF-Projekts</a> </h3>
+<a name = '!idx:/introduction.html:sec:helloworld-setup'> </a> Das Erstellen eines  <span class='latex-textit'>Maven</span> -Projekts l&auml;uft immer nach dem selben Schema ab. Im
+Projektverzeichnis wird neben der Beschreibung des Projekts in der Datei  <span class='latex-texttt'>pom.xml</span> noch das Verzeichnis  <span class='latex-texttt'>src</span>  mit dem Unterverzeichnis  <span class='latex-texttt'>main</span>  angelegt. Dort
+legen wir den Quellcode unseres Projekts in drei weiteren Unterverzeichnissen ab.
+S&auml;mtliche Javaklassen kommen ins Unterverzeichnis  <span class='latex-texttt'>java</span> , alle Ressourcen wie
+ <span class='latex-texttt'>.properties</span> -Dateien kommen ins Unterverzeichnis  <span class='latex-texttt'>resources</span>  und alle
+f&uuml;r die Webapplikation relevanten Dateien ins Unterverzeichnis  <span class='latex-texttt'>webapp</span> . Diese
+Struktur ist eine Konvention von  <span class='latex-textit'>Maven</span>  und sollte f&uuml;r alle Projekte eingehalten
+werden. In Abbildung  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:helloworld-struct");' href='./introduction.html#!idx:/introduction.html:fig:helloworld-struct'> Struktur des Hello World-Projekts </a>  sehen Sie die komplette Projektstruktur.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:helloworld-struct'></a> <div class='latex-img'><img alt='' src='../grafiken/helloworld-struct.jpg' width=230 height=234 > </img></div> <div class='latex-index-anchor' > Abbildung:Struktur des Hello World-Projekts </div> </div> Eine detaillierte Einf&uuml;hrung in die grundlegenden Konzepte von  <span class='latex-textit'>Maven</span>  w&uuml;rde den
+Rahmen dieses Kapitels sprengen - aber keine Sorge, wir lassen Sie nicht im Regen stehen.
+In Anhang  <a onClick='javascript: return dojoNav("./appendix_maven.html#!idx:/appendix_maven.html:chap:maven-introduction");' href='./appendix_maven.html#!idx:/appendix_maven.html:chap:maven-introduction'> Kapitel:&nbsp; Eine kurze Einf&uuml;hrung in Maven </a>  finden Sie allerhand Wissenswertes zu  <span class='latex-textit'>Maven</span> inklusive einer Installationsanleitung. Dort zeigen wir Ihnen auch, wie Sie den Vorgang
+der Projekterstellung mit  <span class='latex-textit'>Maven</span>  automatisieren k&ouml;nnen.<br />Bevor wir uns den JSF-relevanten Inhalten zuwenden, werfen wir noch einen Blick auf die
+Beschreibung des Projekts in der Datei  <span class='latex-texttt'>pom.xml</span> . Die komplette Datei finden Sie
+im Quellcode der Anwendung, f&uuml;r uns ist momentan nur die Definition der Abh&auml;ngigkeiten
+zu den Bibliotheken f&uuml;r JSF 2.0 interessant. Listing  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:helloworld-pom-dep-moj");' href='./introduction.html#!idx:/introduction.html:fig:helloworld-pom-dep-moj'> Abh&auml;ngigkeiten zu Sun Mojarra in der
+pom.xml </a> zeigt die Abh&auml;ngigkeiten f&uuml;r  <span class='latex-textit'>Sun Mojarra</span>  in Version 2.0.1. Die Bibliothek mit
+der Artifact-ID  <span class='latex-texttt'>jsf-api</span>  beinhaltet die standardisierte API von JSF 2.0 und die
+Bibliothek mit der Artifact-ID  <span class='latex-texttt'>jsf-impl</span>  die konkrete Implementierung von
+ <span class='latex-textit'>Sun Mojarra</span> .<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:helloworld-pom-dep-moj'></a>                     <pre><code>&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.sun.faces&lt;/groupId&gt;
+    &lt;artifactId&gt;jsf-api&lt;/artifactId&gt;
+    &lt;version&gt;2.0.1&lt;/version&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.sun.faces&lt;/groupId&gt;
+    &lt;artifactId&gt;jsf-impl&lt;/artifactId&gt;
+    &lt;version&gt;2.0.1&lt;/version&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+                </div> Als Alternative zu  <span class='latex-textit'>Sun Mojarra</span>  kann auch  <span class='latex-textit'>Apache MyFaces</span>  zum Einsatz
+kommen. Listing  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:helloworld-pom-dep-myf");' href='./introduction.html#!idx:/introduction.html:fig:helloworld-pom-dep-myf'> Abh&auml;ngigkeiten zu Apache MyFaces in
+der pom.xml </a>  zeigt die Abh&auml;ngigkeiten f&uuml;r
+ <span class='latex-textit'>Apache MyFaces</span>  in Version 2.0.0. Die Bibliothek mit der Artifact-ID
+ <span class='latex-texttt'>myfaces-api</span>  beinhaltet die standardisierte API von JSF 2.0 und die
+Bibliothek mit der Artifact-ID  <span class='latex-texttt'>myfaces-impl</span>  die konkrete Implementierung.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:helloworld-pom-dep-myf'></a>                     <pre><code>&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.myfaces.core&lt;/groupId&gt;
+    &lt;artifactId&gt;myfaces-api&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.myfaces.core&lt;/groupId&gt;
+    &lt;artifactId&gt;myfaces-impl&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+                </div> Standardm&auml;&szlig;ig verwenden alle Beispiele  <span class='latex-textit'>Apache MyFaces</span> . Wenn Sie zu Testzwecken die
+JSF-Implementierungen &auml;ndern wollen, m&uuml;ssen Sie dazu nicht die Datei  <span class='latex-texttt'>pom.xml</span> editieren. Alle  <span class='latex-textit'>MyGourmet</span> -Beispiele definieren Profile f&uuml;r  <span class='latex-textit'>Apache MyFaces</span> (ist standardm&auml;&szlig;ig aktiv) und f&uuml;r  <span class='latex-textit'>Sun Mojarra</span> . Wie Sie diese Profile verwenden
+k&ouml;nnen, zeigt Anhang  <a onClick='javascript: return dojoNav("./appendix_maven.html#!idx:/appendix_maven.html:chap:maven-introduction");' href='./appendix_maven.html#!idx:/appendix_maven.html:chap:maven-introduction'> Kapitel:&nbsp; Eine kurze Einf&uuml;hrung in Maven </a> .<br /> <span id='_footnote_marker_12' class='latex-footnote-marker'>Deklaration der Ansicht:</span>
+                 Jetzt kommen wir zum wichtigsten Teil unserer Anwendung:
+Wie es sich f&uuml;r eine  <span class='latex-textit'>Hello World</span> -Anwendung geh&ouml;rt, wollen wir auf der Startseite
+unserer Anwendung den Text "Hello JSF 2.0-World" ausgeben. Dazu legen wir im Verzeichnis
+ <span class='latex-texttt'>webapp</span>  die JSF-Seitendeklaration  <span class='latex-texttt'>hello.xhtml</span>  an (siehe Listing
+ <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:helloworld-page");' href='./introduction.html#!idx:/introduction.html:fig:helloworld-page'> Die Seitendeklaration hello.xhtml </a> ).<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:helloworld-page'></a>                     <pre><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"&gt;
+&lt;head&gt;
+  &lt;title&gt;Hello World&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h:outputText value="Hello JSF 2.0-World"/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                </div>  Das Grundger&uuml;st dieser Seite ist ein gew&ouml;hnliches XHTML-Dokument mit einem
+im  <span class='latex-texttt'>body</span> -Element eingebetteten  <span class='latex-texttt'>h:outputText</span> -Tag zur Ausgabe unserer
+Meldung. Dieses von JSF zur Verf&uuml;gung gestellte Tag gibt den im Attribut  <span class='latex-texttt'>value</span> angegebenen Text aus. Der Pr&auml;fix  <span class='latex-texttt'>h:</span>  ist dabei mit dem Namensraum
+ <span class='latex-texttt'>http://java.sun.com/jsf/html</span>  verbunden und kennzeichnet die HTML-Tag-Bibliothek
+von JSF. Sie enth&auml;lt neben dem Tag  <span class='latex-texttt'>h:outputText</span>  noch eine Reihe weiterer Tags
+f&uuml;r Standard-JSF-Komponenten und ihre Darstellung als HTML-Ausgabe - doch dazu sp&auml;ter
+mehr.<br /> <span id='_footnote_marker_13' class='latex-footnote-marker'>web.xml:</span>
+                  Im zweiten Schritt erstellen wir
+die Webkonfigurationsdatei  <span class='latex-texttt'>web.xml</span>  im  <span class='latex-texttt'>/WEB-INF</span> -Verzeichnis unserer
+Webanwendung <span id='_footnote_marker_14' class='latex-footnote-marker'>Die Datei <span class='latex-texttt'>web.xml</span> wird auch
+<span class='latex-textit'>Deployment</span>-Deskriptor der Webanwendung genannt.:</span>
+                  so, dass auf die
+JSF-Technologie zugegriffen werden kann. Das geschieht durch die Einbindung
+des JSF-Servlets in Form einer Servlet-Definition und eines Servlet-Mappings, wie
+es Listing  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-web.xml-config");' href='./introduction.html#!idx:/introduction.html:fig:example-web.xml-config'> Die Konfigurationsdatei web.xmlmit der Spezifikation eines FacesServlet sowie des zugeh&ouml;rigen Servlet-Mappings. </a>  zeigt. Durch das angegebene
+ <span class='latex-texttt'>servlet-mapping</span> -Element werden s&auml;mtliche Anfragen mit der Endung
+ <span class='latex-texttt'>.xhtml</span>  von genau diesem JSF-Servlet bearbeitet.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-web.xml-config'></a>                     <pre><code>&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5"&gt;
+
+  &lt;description&gt;JSF 2.0 - Hello World&lt;/description&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;Faces Servlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;
+      javax.faces.webapp.FacesServlet
+    &lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;Faces Servlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.xhtml&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+  &lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;hello.xhtml&lt;/welcome-file&gt;
+  &lt;/welcome-file-list&gt;
+&lt;/web-app&gt;
+</code></pre>
+                </div>  Zu guter letzt definieren wir noch die Seite  <span class='latex-texttt'>hello.xhtml</span>  als Welcome-File der
+Anwendung. Damit ist gew&auml;hrleistet, dass die Seite immer dann angezeigt wird, wenn ein
+Benutzer im Browser die URL der Anwendung ohne Angabe einer speziellen Seite eingibt.<br />Herzlichen Gl&uuml;ckwunsch - Sie haben soeben Ihre erste Webanwendung mit  <span class='latex-textit'>JavaServer
+Faces</span>  verfasst! Im n&auml;chsten Abschnitt zeigen wir Ihnen, wie Sie die Anwendung direkt mit
+ <span class='latex-textit'>Maven</span>  starten k&ouml;nnen. Dieses Beispiel war selbstverst&auml;ndlich erst der Einstieg,
+wenn Sie also noch Fragen haben, laden wir Sie zum Weiterlesen ein.<br /> <h3><a class='latex-index-anchor' name='!idx:/introduction.html:1.3.2'>1.3.2 Starten der Anwendung</a> </h3>
+ Zum Starten der  <span class='latex-textit'>Hello World</span> -Applikation kommt das  <span class='latex-textit'>Jetty-Maven-Plug-in</span> zur Anwendung.  <span class='latex-textit'>Jetty</span>  ist ein Servlet-Container, der als Laufzeitumgebung f&uuml;r unsere
+JSF-Applikation dient und von der Konsole aus zu starten ist. Schnelles Prototyping
+f&uuml;r erste Versionen der Webapplikation kann hiermit perfekt zum Zug kommen. Der Befehl,
+um den Server zu starten, lautet <span id='_footnote_marker_15' class='latex-footnote-marker'>Standardm&auml;&szlig;ig wird <span class='latex-textit'>Jetty</span> &uuml;ber
+<span class='latex-texttt'>mvn clean jetty:run</span> gestartet. Mit JSF 2.0 werden aber in diesem Fall einige
+Annotationen nicht richtig verarbeitet.:</span>
+                 :<br />                     <pre><code>mvn clean jetty:run-exploded
+</code></pre>
+                 Eingegeben werden muss dieser ebenfalls wieder in der Wurzel des Projektverzeichnisses.
+Die ben&ouml;tigten Dateien werden durch  <span class='latex-textit'>Maven 2</span>  erneut automatisch in das lokale
+Repository geladen. Danach startet der Server und die Applikation kann in der Adresszeile
+des Browsers wie folgt aufgerufen werden:<br />                     <pre><code>http://localhost:8080/helloworld/
+</code></pre>
+                 Der Build-Prozess des Projekts kann in weiterer Folge mit diesem Befehl neu angesto&szlig;en
+werden:<br />                     <pre><code>mvn install
+</code></pre>
+                 Ein Unterordner  <span class='latex-texttt'>target</span>  entsteht, in dem die kompilierten Klassen und das
+ <span class='latex-texttt'>.war</span> -Archiv liegen. Die  <span class='latex-texttt'>.war</span> -Datei enth&auml;lt auch alle zur Ausf&uuml;hrung
+der Webapplikation ben&ouml;tigten Bibliotheken, die  <span class='latex-textit'>Maven 2</span>  &uuml;ber die Abh&auml;ngigkeiten
+in der  <span class='latex-texttt'>pom.xml</span> -Projektdatei eingef&uuml;gt hat. Das Projekt wurde nun wie zuvor der
+ <span class='latex-textit'>Archetype</span>  ins lokale Repository unter der Group-Id  <span class='latex-texttt'>at.irian.jsfatwork</span> und der Artifact-Id  <span class='latex-texttt'>helloworld</span>  installiert. Abbildung  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:mvn-install-folder");' href='./introduction.html#!idx:/introduction.html:fig:mvn-install-folder'> Anwendung im lokalen Repository </a> zeigt die Verzeichnisstruktur im lokalen Repository.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:mvn-install-folder'></a> <div class='latex-img'><img alt='' src='../grafiken/maven-install-folder.jpg' width=520 height=190 > </img></div> <div class='latex-index-anchor' > Abbildung:Anwendung im lokalen Repository </div> </div><h3><a class='latex-index-anchor' name='!idx:/introduction.html:1.3.3'>1.3.3 Entwicklung mit Eclipse und JBoss-Tools</a> </h3>
+<a name = '!idx:/introduction.html:sec:development-eclipse'> </a> Die Fans h&uuml;bscher Benutzerschnittstellen sind im letzten Abschnitt schwer entt&auml;uscht worden
+- sie werden im folgenden Abschnitt wieder mit der JSF-Entwicklung vers&ouml;hnt werden; die
+Kombination aus  <span class='latex-textit'>Eclipse</span>  und den  <span class='latex-textit'>JBoss-Tools</span>  ist n&auml;mlich eine ausgezeichnete
+Alternative zum Arbeiten auf der Kommandozeile.<br />Nat&uuml;rlich k&ouml;nnen die Projektdateien mit jedem Texteditor bearbeitet werden - will man
+aber die Entwicklungsumgebung  <span class='latex-textit'>Eclipse</span>  (oder eines der Plug-ins) f&uuml;r die Arbeit
+an der Applikation verwenden, hilft der Aufruf des folgenden Befehls im Wurzelverzeichnis
+der Anwendung:<br />                     <pre><code>mvn eclipse:eclipse
+</code></pre>
+                 Damit wird ein Standard-Java-Projekt angelegt, das in Eclipse importiert werden kann. Um
+in der Entwicklungsumgebung auch die erweiterten Features f&uuml;r Webanwendungen nutzen zu
+k&ouml;nnen, empfiehlt es sich allerdings, den Befehl wie folgt zu verwenden:<br />                     <pre><code>mvn eclipse:eclipse -Dwtpversion=1.5
+</code></pre>
+                <span class='latex-textit'>Maven 2</span>  nimmt wirklich eine Menge an Arbeit ab! Die Projektdateien f&uuml;r
+ <span class='latex-textit'>Eclipse</span>  wurden automatisch erstellt und das Projekt kann in Eclipse mit allen
+ben&ouml;tigten Abh&auml;ngigkeiten und Pfaden importiert werden. Eine ausf&uuml;hrliche Anleitung,
+um Eclipse und die  <span class='latex-textit'>JBoss-Tools</span>  f&uuml;r die Arbeit mit JSF einzurichten, findet sich
+in Anhang  <a onClick='javascript: return dojoNav("./appendix_eclipse.html#!idx:/appendix_eclipse.html:chap:eclipse");' href='./appendix_eclipse.html#!idx:/appendix_eclipse.html:chap:eclipse'> Kapitel:&nbsp; Eclipse und JBoss-Tools </a> .<br /> <h4><a class='latex-index-anchor' name='!idx:/introduction.html:1.3.3.1' >1.3.3.1 Arbeiten mit Eclipse und JBoss-Tools</a></h4>
+ Nach dem Starten des Programms befindet man sich in einer mit den JBoss-Tools-Optionen
+angereicherten Version von  <span class='latex-textit'>Eclipse</span>  (siehe Abbildung  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:jboss-tools-gui");' href='./introduction.html#!idx:/introduction.html:fig:jboss-tools-gui'> Eclipse und JBoss-Tools mit ge&ouml;ffnetem Hello World-Projekt </a> ).<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:jboss-tools-gui'></a> <div class='latex-img'><img alt='' src='../grafiken/jboss-gui.jpg' width=600 height=409 > </img></div> <div class='latex-index-anchor' > Abbildung:Eclipse und JBoss-Tools mit ge&ouml;ffnetem Hello World-Projekt </div> </div> Eclipse bietet in Verbindung mit den  <span class='latex-textit'>JBoss-Tools</span>  einen durchaus brauchbaren
+Assistenten zum Erstellen von JSF-Anwendungen an. Leider war zum Zeitpunkt der
+Drucklegung die Unterst&uuml;tzung von JSF 2.0 noch nicht integriert, aber bereits angek&uuml;ndigt.
+Sobald der Assistent das Erstellen von JSF 2.0-Projekten unterst&uuml;tzt, werden wir eine
+ausf&uuml;hrliche Anleitung auf  <a href='http://jsfatwork.irian.at'>http://jsfatwork.irian.at</a>  zur Verf&uuml;gung stellen.<br />  Die  <span class='latex-textit'>JBoss-Tools</span>  stellen au&szlig;erdem eine WYSIWYG-Ansicht und einen Editor f&uuml;r die
+einzelnen JSF-Seiten zur Verf&uuml;gung. Mit diesem Editor ist es
+kinderleicht, JSF-Seiten selbst zu erstellen, Komponenten auf diesen Seiten einzubinden
+und diese mit Eigenschaften der  <span class='latex-textit'>Managed-Beans</span>  zu verbinden. Der Editor wird &uuml;ber
+einen Doppelklick auf eine JSF-Datei gestartet. Dadurch &ouml;ffnet sich der JSF-Editor in der
+Quellcodeansicht und - im unteren  Bereich der Bildschirmanzeige - der WYSIWYG-Editor.
+Von der Werkzeugleiste rechts im Bild k&ouml;nnen Komponenten in den oberen Teil (die
+Quelltextansicht) gezogen werden, die entstandenen Komponenten werden dann automatisch
+von der WYSIWYG-Ansicht dargestellt.<br />Als Beispiel werden wir in unserer XHTML-Datei mit dem Namen  <span class='latex-texttt'>hello.xhtml</span> eine neue Komponente einf&uuml;gen. Durch einen Doppelklick auf die Datei &ouml;ffnet sich der
+Editor. Wir &ouml;ffnen (sofern sie noch nicht angezeigt ist) die Ansicht "JBoss Tools
+Palette" und w&auml;hlen den Tab "JSF HTML" an. Auf diesem Tab selektieren wir das Element
+"outputText" und ziehen es in den roten Bereich in der WYSIWYG-Ansicht. Sobald wir die
+Maustaste loslassen, fragt eine Eingabeaufforderung den Wert dieser Komponente ab. Wir
+geben beispielsweise den Wert "Hello again!" ein und schlie&szlig;en die Eingabeaufforderung.
+In der WYSIWYG-Ansicht wird sofort die entsprechende Komponente dargestellt. Abbildung
+ <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:jboss-wysiwyg-editor");' href='./introduction.html#!idx:/introduction.html:fig:jboss-wysiwyg-editor'> WYSIWYG-Editor der JBoss-Tools </a> ) zeigt die WYSIWYG-Ansicht mit dem Dialog zum
+Initialisieren des Werts der Komponente.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:jboss-wysiwyg-editor'></a> <div class='latex-img'><img alt='' src='../grafiken/jboss-wysiwyg-editor.jpg' width=600 height=385 > </img></div> <div class='latex-index-anchor' > Abbildung:WYSIWYG-Editor der JBoss-Tools </div> </div> Mit der von JBoss angebotenen Kombination an Entwicklungswerkzeugen l&auml;sst sich ausgezeichnet
+arbeiten; wenn Sie Spa&szlig; an der Sache hatten, k&ouml;nnen Sie zur &Uuml;bung gleich noch einige Seiten
+hinzuf&uuml;gen.<br /> <h4><a class='latex-index-anchor' name='!idx:/introduction.html:1.3.3.2' >1.3.3.2 Starten der Anwendung</a></h4>
+ Das Starten der erstellten Anwendung verl&auml;uft sehr einfach: Der integrierte
+ <span class='latex-textit'>Servlet-Container Tomcat</span>  kann durch das Bet&auml;tigen der
+ <span class='latex-texttt'>Start Tomcat...</span> -Schaltfl&auml;che in der Symbolleiste von Eclipse gestartet werden
+- das Symbol ist ein gr&uuml;ner Pfeil. Alternativ dazu kann gleich rechts daneben auch ein
+ <span class='latex-textit'>Debug-Modus</span>  gestartet werden.<br /> <span id='_footnote_marker_16' class='latex-footnote-marker'>Web Tools:</span>
+                 Die
+ <span class='latex-textit'>JBoss-Tools</span>  bauen mit der Verteilung der Anwendung auf der  <span class='latex-textit'>Web Tools
+Platform</span>  von Eclipse auf - ein Projekt, das mittlerweile in den meisten F&auml;llen stabil
+l&auml;uft. Manchmal kommt es jedoch immer noch zu unerkl&auml;rlichen Fehlern in der
+JSF-Applikation. In solchen F&auml;llen ist es oft hilfreich, den Verteilungsprozess neu in
+Gang zu setzen, um Probleme durch unvollst&auml;ndig oder gar nicht neu verteilte Dateien zu
+l&ouml;sen.<br />Erledigt wird das durch die vollst&auml;ndige Entleerung des  <span class='latex-textit'>Deployment</span> -Verzeichnisses.
+Dieses befindet sich unter:<br />                     <pre><code>[Projektname].deployables
+</code></pre>
+                 Hilft auch diese Ma&szlig;nahme nicht, bleibt in zweiter Instanz nur das Neustarten von Eclipse.
+Abhilfe kann auch das L&ouml;schen und Neuerstellen des  <span class='latex-textit'>Server</span> -Eintrags im
+ <span class='latex-textit'>Servers</span> -Tab schaffen.<br />Sollte dadurch noch immer keine Besserung eintreten, kann als letzte Ma&szlig;nahme das tempor&auml;re
+Verzeichnis der  <span class='latex-textit'>Web Tools Platform</span>  geleert werden. Dieses Verzeichnis finden Sie am
+einfachsten, wenn Sie in die Logmeldungen sehen, die beim Hochstarten Ihrer Webanwendung
+ausgegeben werden. Sie sollten dort eine Zeile &auml;hnlich der folgenden finden:<br />                     <pre><code>INFO: ServletContext '[workspace_dir].metadata
+    .plugins\org.eclipse.wst.server.core\tmp0
+    webapps[context_name]' initialized.
+</code></pre>
+                 Die Angabe f&uuml;hrt Sie zu jenem Verzeichnis, in das die Zwischenspeicherung von tempor&auml;ren
+Dateien Ihrer Webanwendung erfolgt.<br />Nach diesem Abstecher in die Welt der Build-Werkzeuge und Entwicklungsumgebungen widmen
+wir den n&auml;chsten Abschnitt der ersten Version unseres  <span class='latex-textit'>MyGourmet</span> -Beispiels.<br /> <h2><a class='latex-index-anchor' name='!idx:/introduction.html:1.4' >1.4 MyGourmet 1: Einf&uuml;hrung anhand eines Beispiels</a> </h2>
+<a name = '!idx:/introduction.html:sec:example-mygourmet01'> </a> Im Laufe des Buchs wird schrittweise eine kleine Beispielapplikation mit dem Namen
+ <span class='latex-textit'>MyGourmet</span>  aufgebaut. Die Anwendung soll einen Online-Bestellservice f&uuml;r lukullische
+Gen&uuml;sse jeglicher Art darstellen. Der Fokus liegt dabei verst&auml;ndlicherweise weniger auf
+vollst&auml;ndiger Funktionalit&auml;t oder perfektem Design, sondern auf der Vermittlung der Basiskonzepte
+von  <span class='latex-textit'>JavaServer Faces</span> . Jeder Schritt erweitert  <span class='latex-textit'>MyGourmet</span>  um die im jeweiligen
+Kapitel vorgestellten Aspekte von JSF. Sie finden den Sourcecode f&uuml;r alle Beispiele dieses Buchs
+unter der Adresse  <a href='http://jsfatwork.irian.at'>http://jsfatwork.irian.at</a> .<br />Im ersten Schritt erweitern wir unser  <span class='latex-textit'>Hello World</span> -Beispiel um ein einfaches
+Formular zur Eingabe der Daten eines Kunden. Es existiert ein Feld f&uuml;r die Eingabe des
+Vornamens und des Nachnamens und eine Absendeschaltfl&auml;che. Nach dem Bet&auml;tigen der
+Schaltfl&auml;che werden die gerade eingegebenen Daten noch einmal dargestellt, und zwar
+in entsprechenden Ausgabefeldern mit einer zus&auml;tzlich eingeblendeten Erfolgsmeldung.<br />Zuerst sollten wir die Klassen unseres Datenmodells so fertigstellen, dass wir sie in
+der Webapplikation verwenden k&ouml;nnen. Das ist einfach - eine simple Java-Klasse
+ <span class='latex-texttt'>Customer</span>  mit den zwei Klassenvariablen  <span class='latex-texttt'>firstName</span>  und  <span class='latex-texttt'>lastName</span> und den dazugeh&ouml;rigen Zugriffsmethoden  <span class='latex-texttt'>getFirstName()</span> ,
+ <span class='latex-texttt'>setFirstName(String firstName)</span> ,  <span class='latex-texttt'>getLastName()</span>  und
+ <span class='latex-texttt'>setLastName(String lastName)</span>  reichen dazu aus. Die Klasse ist in Listing
+ <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-class-person");' href='./introduction.html#!idx:/introduction.html:fig:example-class-person'> Die Klasse Customer </a>  dargestellt.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-class-person'></a>                     <pre><code>package at.irian.jsfatwork.gui.page;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+@ManagedBean
+@SessionScoped
+public class Customer {
+  private String firstName;
+  private String lastName;
+
+  public String getFirstName() {
+    return firstName;
+  }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+  public String getLastName() {
+    return lastName;
+  }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+}
+</code></pre>
+                </div><span id='_footnote_marker_17' class='latex-footnote-marker'>Managed-Bean:</span>
+                 Der Zugriff auf das Datenmodell erfolgt in JSF &uuml;ber
+sogenannte  <span class='latex-textit'>Managed-Beans</span> . In JSF versteht man darunter  <span class='latex-textit'>JavaBeans</span> ,
+die unter einem eindeutigen Namen in der Anwendung zur Verf&uuml;gung stehen. Um eine
+ <span class='latex-textit'>Managed-Bean</span>  vom Typ  <span class='latex-texttt'>Customer</span>  zu registrieren, gen&uuml;gt es in JSF
+2.0, die Klasse mit  <span class='latex-texttt'>@ManagedBean</span>  zu annotieren. Der Name, unter dem die
+Bean zur Verf&uuml;gung steht, wird vom Klassennamen abgeleitet und lautet in unserem Fall
+ <span class='latex-texttt'>customer</span> .<br />Die Bean ist dabei einem zeitlich eingeschr&auml;nkten und auf den Benutzer bezogenen
+G&uuml;ltigkeitsbereich zugeordnet. Mit der ebenfalls in Version 2.0 eingef&uuml;hrten Annotation
+ <span class='latex-texttt'>@SessionScoped</span>  weisen wir JSF an, die  <span class='latex-textit'>Managed-Bean</span>  einmal pro
+HTTP-Session neu zu erzeugen.<br /> <span id='_footnote_marker_18' class='latex-footnote-marker'>Deklaration der Ansicht:</span>
+                 Jetzt kommen wir zum wichtigsten Teil unserer Anwendung:
+Irgendwo muss auf diese  <span class='latex-textit'>Managed-Bean</span>  zugegriffen werden, und das machen wir in einer
+Facelets-Seite <span id='_footnote_marker_19' class='latex-footnote-marker'>Facelets ist seit JSF 2.0 Teil des Standards und JavaServer Pages
+vorzuziehen, mehr dazu in Abschnitt <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:vdl");' href='./jsf.html#!idx:/jsf.html:sec:vdl'> Sektion:&nbsp; Seitendeklarationssprachen </a>.:</span>
+                 . In  <span class='latex-textit'>MyGourmet 1</span>  ist das die Seite
+ <span class='latex-texttt'>editCustomer.xhtml</span>  zum Erfassen des Vor- und Nachnamen des Kunden. Das Grundger&uuml;st der
+Seite ist wie schon beim  <span class='latex-textit'>Hello World</span> -Beispiel ein HTML-Dokument mit
+eingebetteten JSF-Tags im  <span class='latex-texttt'>body</span> -Element.<br />Damit wir mit unserer Seite &uuml;berhaupt Benutzereingaben verarbeiten k&ouml;nnen,
+brauchen wir ein Formular. JSF stellt dazu in der HTML-Tag-Bibliothek das Tag
+ <span class='latex-texttt'>h:form</span>  zur Verf&uuml;gung. Die Eingabefelder f&uuml;r den Vor- und den
+Nachnamen des Kunden werden mit dem Tag  <span class='latex-texttt'>h:inputText</span> innerhalb des Formulars in die Seite eingef&uuml;gt. Damit Benutzer der Anwendung die
+Eingabefelder unterscheiden k&ouml;nnen, bekommen sie &uuml;ber das Tag
+ <span class='latex-texttt'>h:outputLabel</span>  ein Label. Die Verbindung zwischen
+dem Label und dem Eingabefeld erfolgt, indem die ID des Eingabefelds in das
+ <span class='latex-texttt'>for</span> -Attribut von  <span class='latex-texttt'>h:outputLabel</span>  eingetragen wird. Zum Ausrichten
+der einzelnen Elemente in einer tabellenf&ouml;rmigen Struktur kommt
+ <span class='latex-texttt'>h:panelGrid</span>  zum Einsatz.<br />Interessant ist bei diesen Tags das  <span class='latex-texttt'>value</span> -Attribut der Eingabeelemente.
+Es beinhaltet eine  <span class='latex-textit'>Value-Expression</span> , &uuml;ber die der Wert einer Komponente mit einer
+ <span class='latex-textit'>Managed-Bean</span>  und deren Eigenschaften verbunden werden kann. Das geschieht mit
+folgender Syntax: Nach einer Raute <span id='_footnote_marker_20' class='latex-footnote-marker'>Ab JSF 1.2 darf auch ein "$"-Zeichen - wie
+in der fr&uuml;her definierten <span class='latex-textit'>JSP Expression Language</span> - verwendet werden.:</span>
+                  folgt in
+geschwungenen Klammern der Name der Eigenschaft in der Form  <span class='latex-texttt'>bean.eigenschaft</span> .
+Allgemein ergibt das also einen Ausdruck in der Form  <span class='latex-texttt'>#{managedBean.eigenschaft}</span> - wie in Listing  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-page1-xhtml");' href='./introduction.html#!idx:/introduction.html:fig:example-page1-xhtml'> Die Datei editCustomer.xhtml </a>  mehrfach zu sehen.<br />Diese Applikation k&ouml;nnen wir bereits ausf&uuml;hren, wir werden eine Seite mit den von
+uns definierten Eingabefeldern sehen. Der n&auml;chste Schritt ist das Weiterleiten des
+Benutzers auf die Seite  <span class='latex-texttt'>showCustomer.xhtml</span> , was in unserem Fall durch eine
+Schaltfl&auml;che erfolgen soll. Wir f&uuml;gen also eine Schaltfl&auml;che zu unserer XHTML-Seite
+hinzu. Das entsprechende JSF-Element hei&szlig;t  <span class='latex-texttt'>h:commandButton</span> .
+   Diese Schaltfl&auml;che versehen wir mit einem Attribut
+ <span class='latex-texttt'>action</span> , das den Wert  <span class='latex-texttt'>/showCustomer.xhtml</span>  erh&auml;lt, und einem Attribut
+ <span class='latex-texttt'>value</span>  mit der im Browser darzustellenden Beschriftung  <span class='latex-texttt'>Save</span> .
+Ein Klick auf die Schaltfl&auml;che bewirkt, dass JSF den Benutzer auf die im Attribut
+ <span class='latex-texttt'>action</span>  angegebene Seite weiterleitet.<br />Vor JSF 2.0 musste die Navigation noch verpflichtend in der Konfigurationsdatei
+ <span class='latex-texttt'>faces-config.xml</span>  in Form von Navigationsregeln definiert werden. In JSF 2.0
+kann dieser Schritt durch das direkte Angeben der Seite entfallen. Weiterf&uuml;hrende
+Informationen zum Thema Navigation finden Sie in Abschnitt  <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:navigation");' href='./jsf.html#!idx:/jsf.html:sec:navigation'> Sektion:&nbsp; Navigation </a> .<br />Der komplette Sourcecode der Seite  <span class='latex-texttt'>editCustomer.xhtml</span>  ist in Listing
+ <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-page1-xhtml");' href='./introduction.html#!idx:/introduction.html:fig:example-page1-xhtml'> Die Datei editCustomer.xhtml </a>  zu finden.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-page1-xhtml'></a>                     <pre><code>&lt;!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"&gt;
+&lt;head&gt;
+  &lt;title&gt;MyGourmet - Edit Customer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;&lt;h:outputText value="MyGourmet"/&gt;&lt;/h1&gt;
+  &lt;h2&gt;&lt;h:outputText value="Edit Customer"/&gt;&lt;/h2&gt;
+  &lt;h:form id="form"&gt;
+    &lt;h:panelGrid id="grid" columns="2"&gt;
+      &lt;h:outputLabel value="First Name:" for="firstName"/&gt;
+      &lt;h:inputText id="firstName" 
+          value="#{customer.firstName}"/&gt;
+      &lt;h:outputLabel value="Last Name:" for="lastName"/&gt;
+      &lt;h:inputText id="lastName"
+          value="#{customer.lastName}"/&gt;
+      &lt;h:commandButton id="save" value="Save"
+          action="/showCustomer.xhtml"/&gt;
+    &lt;/h:panelGrid&gt;
+  &lt;/h:form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                </div> Abbildung  <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:mygourmet01-form-comptypes");' href='./introduction.html#!idx:/introduction.html:fig:mygourmet01-form-comptypes'> MyGourmet 1: Komponenten und
+ihre Darstellung </a>  zeigt die Darstellung der Seite im Browser
+und den Zusammenhang zu den JSF-Komponenten in der XHTML-Datei.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:mygourmet01-form-comptypes'></a> <div class='latex-img'><img alt='' src='../grafiken/mygourmet01-form-comptypes.jpg' width=600 height=198 > </img></div> <div class='latex-index-anchor' > Abbildung:MyGourmet 1: Komponenten und
+ihre Darstellung </div> </div>  Bevor wir auf die Seite  <span class='latex-texttt'>showCustomer.xhtml</span>  (Listing
+ <a onClick='javascript: return dojoNav("./introduction.html#!idx:/introduction.html:fig:example-page2-xhtml");' href='./introduction.html#!idx:/introduction.html:fig:example-page2-xhtml'> Die Datei showCustomer.xhtml </a> ) navigieren k&ouml;nnen, m&uuml;ssen wir sie zuerst erstellen.
+Die neue Seite soll &auml;hnlich der ersten Seite aussehen, nur ersetzen jetzt
+ <span class='latex-texttt'>h:outputText</span> -Tags die  <span class='latex-texttt'>h:inputText</span> -Elemente und ein zus&auml;tzliches
+ <span class='latex-texttt'>h:outputText</span> -Tag gibt die Nachricht "Customer saved successfully!" aus.<br /> <div class='latex-begin-block'> <a class='latex-index-anchor' name = '!idx:/introduction.html:fig:example-page2-xhtml'></a>                     <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"&gt;
+&lt;head&gt;
+  &lt;title&gt;MyGourmet - Show Customer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;&lt;h:outputText value="MyGourmet"/&gt;&lt;/h1&gt;
+  &lt;h2&gt;&lt;h:outputText value="Show Customer"/&gt;&lt;/h2&gt;
+  &lt;h:panelGrid id="grid" columns="2"&gt;
+    &lt;h:outputText value="First Name:"/&gt;
+    &lt;h:outputText value="#{customer.firstName}"/&gt;
+    &lt;h:outputText value="Last Name:"/&gt;
+    &lt;h:outputText value="#{customer.lastName}"/&gt;
+  &lt;/h:panelGrid&gt;
+  &lt;h:outputText value="Customer saved successfully!"/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                </div><span id='_footnote_marker_21' class='latex-footnote-marker'>Applikationslogik ausf&uuml;hren:</span>
+                 Fertig! Die Applikation funktioniert bereits
+so wie gew&uuml;nscht und leitet uns von der ersten Seite durch einen Klick auf die
+Schaltfl&auml;che weiter - auf der zweiten Seite werden die eingegebenen Daten angezeigt.
+In einer "realen" Applikation w&uuml;rden wir die Daten jetzt abspeichern, dazu m&uuml;ssen
+wir durch die von der Schaltfl&auml;che ausgel&ouml;ste Aktion auf eine Methode der
+dahinterliegenden  <span class='latex-textit'>Managed-Beans</span>  zugreifen. Auch dieser Schritt ist
+unkompliziert, statt das Attribut  <span class='latex-texttt'>action</span>  direkt auf eine Zeichenkette zu
+setzen, verwenden wir eine  <span class='latex-textit'>Method-Expression</span> , die auf eine Methode in der
+dahinterliegenden  <span class='latex-textit'>Managed-Bean</span>  referenziert. Mit der gleichen Syntax, mit
+der wir vorher auf eine Variable in der  <span class='latex-textit'>Managed-Bean</span>   <span class='latex-texttt'>customer</span> zugegriffen haben, k&ouml;nnen wir jetzt auch eine Methode referenzieren. Der ge&auml;nderte
+Code der Schaltfl&auml;che sieht folgenderma&szlig;en aus:<br />                     <pre><code>&lt;h:commandButton id="save"
+  action="#{customer.save}" value="Save"/&gt;
+</code></pre>
+                <span id='_footnote_marker_22' class='latex-footnote-marker'>Action-Methode:</span>
+                 Die referenzierte Methode darf
+keinen &Uuml;bergabeparameter haben, muss eine Zeichenkette zur&uuml;ckliefern und zudem
+mit  <span class='latex-texttt'>public</span>  deklariert werden. Die Methode wird beispielsweise einen
+Datenbankzugriff ausf&uuml;hren und die Daten des Kunden speichern. Wir stellen diesen
+Zugriff einfach als Kommentar dar. Schlie&szlig;lich liefert die Methode die Zeichenkette
+zur&uuml;ck, die wir zuvor direkt in die  <span class='latex-texttt'>action</span> -Eigenschaft aufgenommen haben,
+also  <span class='latex-texttt'>/showCustomer.xhtml</span> :<br />                     <pre><code>public String save() {
+  return "/showCustomer.xhtml";
+}
+</code></pre>
+                 Wenn die Speicherung der Kundendaten nicht erfolgreich gewesen ist, sollte eine andere
+Zeichenkette zur&uuml;ckgeliefert werden. Dadurch wird eine andere Navigation ausgel&ouml;st und
+beispielsweise wieder die Seite  <span class='latex-texttt'>/editCustomer.xhtml</span>  angezeigt.<br />Im n&auml;chsten Kapitel erarbeiten wir gemeinsam die theoretischen Grundlagen zum
+Verst&auml;ndnis von JSF. Nach einem kurzen Einblick in die Aufgaben von JSF in Abschnitt
+ <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:jsf-concepts");' href='./jsf.html#!idx:/jsf.html:sec:jsf-concepts'> Sektion:&nbsp; Aufgaben der JSF-Technologie </a>  und der Definition einiger grundlegender Begriffe in Abschnitt
+ <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:jsf-keywords");' href='./jsf.html#!idx:/jsf.html:sec:jsf-keywords'> Sektion:&nbsp; JavaServer Faces in Schlagworten </a>  folgt ein zweiter Teil des Beispiels  <span class='latex-textit'>MyGourmet 1</span>  in
+Abschnitt  <a onClick='javascript: return dojoNav("./jsf.html#!idx:/jsf.html:sec:mygourmet01-keywords");' href='./jsf.html#!idx:/jsf.html:sec:mygourmet01-keywords'> Sektion:&nbsp; MyGourmet 1: Schlagworte@Work </a> . Dort wird das Verst&auml;ndnis der zuvor
+definierten Grundbegriffe im Praxiseinsatz vertieft.<br /> </body></html>
