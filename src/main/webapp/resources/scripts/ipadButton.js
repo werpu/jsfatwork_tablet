@@ -5,7 +5,7 @@
  * according to the button type given
  */
 
-dojo.provide("at.irian.ipadButton", null, {
+dojo.declare("at.irian.ipadButton", null, {
 
     holder: null,
     replacement: null,
