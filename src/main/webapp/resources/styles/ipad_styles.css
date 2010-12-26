@@ -125,8 +125,7 @@ div.navbg {
 /*menu top triangle, fixed with gradient 0.5 transparent (probably image for top best*/
 
 .tablet_bt_normal {
-    border: 1px solid  rgb(200, 199, 222);
-    /*TODO proper shadow styling*/
+    border: 1px solid rgb(200, 199, 222); /*TODO proper shadow styling*/
     -moz-box-shadow: inset 0 0 5px rgb(200, 199, 222);
     -webkit-box-shadow: inset 0 0 5px rgb(200, 199, 222);
     box-shadow: inner 0 0 5px rgb(200, 199, 222);
@@ -141,7 +140,7 @@ div.navbg {
 /*same as std button but thicker shadow and a slight nuance darker (TODO do this somewhat darker)*/
 /*note should dark in at mouseDown, and should lighten up at mouseUp or mouseLeave*/
 .tablet_bt_normal_pressed {
-     -moz-box-shadow: inset 0 0 10px rgb(200, 199, 222);
+    -moz-box-shadow: inset 0 0 10px rgb(200, 199, 222);
     -webkit-box-shadow: inset 0 0 10px rgb(200, 199, 222);
     box-shadow: inner 0 0 10px rgb(200, 199, 222);
 
@@ -149,3 +148,12 @@ div.navbg {
     background-image: -moz-linear-gradient(center bottom, rgb(82, 73, 156) 40%, rgb(132, 127, 201) 72%, rgb(200, 199, 222) 91%);
 }
 
+.menu_triangle {
+    display: block;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    z-index: 999;
+    /*we make the top of the image transparent the bottom is not*/
+    -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 35, from(rgba(0, 0, 0, 0)), to(rgba(255, 255, 255, 1)));
+}
