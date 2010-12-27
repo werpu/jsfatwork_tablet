@@ -21,22 +21,15 @@ dojo.declare("at.irian.shapes.Triangle", null, {
 
     constructor: function(args) {
         args = args || {};
-        this.id = args.id || null;
-        this.originX =  args.originX || 0;
-        this.originY = args.originY || 0;
-        this.canvas = args.canvas || null;
-
-        this.width = args.width || 50;
-        this.height = args.height || 40;
-
-        this.styleClass = args.styleClass || "menu_triangle";
-
+        for (var key in args) {
+            this [key] = args[key] || this[key];
+        }
         dojo.addOnLoad(dojo.hitch(this, this.postInit));
     },
 
     postInit: function() {
 
-        var canvas =(this.canvas)? this.canvas :  this.canvas = dojo.byId(this.id) || document.querySelectorAll(this.id)[0] || document.createElement("canvas");
+        var canvas = (this.canvas) ? this.canvas : this.canvas = dojo.byId(this.id) || document.querySelectorAll(this.id)[0] || document.createElement("canvas");
 
         document.body.appendChild(canvas);
         if (!this.id) {
@@ -46,9 +39,6 @@ dojo.declare("at.irian.shapes.Triangle", null, {
         }
 
         var context = canvas.getContext('2d');
-       // var gradient = context.createLinearGradient(this.width >> 1, 0, this.width >> 1, this.height - 1);
-       // gradient.addColorStop(0, "rgb(188,55,142)");
-       // gradient.addColorStop(1, "rgb(82,73,156)");
 
         context.shadowBlur = 5;
         context.shadowColor = "black";
@@ -60,15 +50,12 @@ dojo.declare("at.irian.shapes.Triangle", null, {
         //context.shadowBlur = 10;
         //context.shadowColor = "black";
 
-// Stroke the outer outline
-
         context.lineWidth = 2;
         context.lineJoin = "round";
-        context.strokeStyle = gradient;
+        context.strokeStyle = black;
         context.stroke();
 
-// Turn off the shadow, or all future fills will have shadows
-        //context.shadowColor = "transparent";
+        context.shadowColor = "transparent";
 
     },
 
