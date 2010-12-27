@@ -31,7 +31,7 @@
         <!--
         -->
     </script>
-     <script type="text/javascript" src="../resources/scripts/Triangle.js">
+    <script type="text/javascript" src="../resources/scripts/Triangle.js">
         <!--
         -->
     </script>
@@ -45,13 +45,13 @@
 
 <h:body>
 
-    <div  class="page_back" >
+    <div class="page_back">
         &lt;&lt;Back
     </div>
 
-    <div  class="page">
-        <div  class="sidebar">
-            <div class="header" >Navigation</div>
+    <div class="page">
+        <div class="sidebar">
+            <div class="header">Navigation</div>
             <div class="navbg">
                 <div class="nav">
                     <ul class="navScroller">
@@ -63,7 +63,7 @@
         </div>
 
         <div id="content" class="content">
-            <div class="header" >Main Content Area</div>
+            <div class="header">Main Content Area</div>
             <div class="article">
                 <div id="contentScroller" class="contentScroller">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -161,11 +161,20 @@
             </div>
         </div>
     </div>
-    <div id="menu1">
-        Spacksack
-
+    <div id="popup">
+        <div id="myheader">MyHeader</div>
+        <div id="myContent">Spacksack</div>
+        <div id="myfooter">myFooter</div>
     </div>
+    <script type="text/javascript">
+        var popup = new at.irian.TabletPopup({origin:"popup", originHeader:"#popup #myheader", originContent: "#popup #myContent", originContent: "#popup #myfooter" , posX: 100, posY: 100});
 
+        function initTablePopup() {
+            popup.show();
+        }
+
+        dojo.addOnLoad(initTablePopup);
+    </script>
 
 
 </h:body>

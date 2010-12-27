@@ -4,34 +4,42 @@ dojo.declare("at.irian.TabletPopupView", null, {
     id: null,
     node: null,
     origin: null,
+    originContent: null,
     originHeader: null,
     originFooter: null,
-    query: null,
+
     styleClass: 'tablet_menu',
+    title:"Tablet Popup",
+    content: "Default Content",
+    footer: "Default Footer",
 
-
-
-    template:"<div id='${id}' class='${styleClass}'><canvas class='heading_pointer'/><div class='menu_content'><div class='content_header'>${title}</div><div class='content'/><div class='content_footer' /></div>",
+    template:"<div id='${id}' class='${styleClass}'><canvas class='heading_pointer'></canvas><div class='menu_content'><div class='content_header'>${title}</div><div class='content'>${content}</div><div class='content_footer' >${footer}</div></div>",
 
     constructor: function(args) {
         args = args || {};
 
-        dojo.addOnLoad(dojo.hitch(this, this.postInit));
+
         for (var key in args) {
             this [key] = args[key] || this[key];
         }
-        dojo.addOnLoad(dojo.hitch(this, this.postInit()));
+          dojo.addOnLoad(dojo.hitch(this, this.postInit));
     },
 
     postInit: function() {
-        this.origin = this.origin || dojo.byId(this.id) || document.querySelectorAll(this.query)[0];
+
+        this.origin =  dojo.byId(this.origin) || document.querySelectorAll(this.origin)[0];
+
+        this.originContent =  dojo.byId(this.originContent) || document.querySelectorAll(this.originContent)[0];
+        this.originHeader =   dojo.byId(this.originHeader) || document.querySelectorAll(this.originHeader)[0];
+        this.originFooter =   dojo.byId(this.originFooter) || document.querySelectorAll(this.originFooter)[0];
+
 
         this.id = this.id || this.origin.id;
 
         var placeHolder = document.createElement("div");
-        placeHolder.innerHTML = this.template.replace(/\$\{id\}/g, this.id).replace(/\$\{id\}/g, this.styleClass);
+        placeHolder.innerHTML = this.template.replace(/\$\{id\}/g, this.id).replace(/\$\{styleClass\}/g, this.styleClass).replace(/\$\{title\}/g, this.title).replace(/\$\{content\}/g, this.content).replace(/\$\{footer\}/g, this.footer);
         //now we move our original node into our content part!
-        this._moveContent(placeHolder.querySelectorAll(".content")[0], this.origin);
+        this._moveContent(placeHolder.querySelectorAll(".content")[0], this.originContent);
         if (this.originHeader) {
             this._moveContent(placeHolder.querySelectorAll(".content_header")[0], this.originHeader);
         }
@@ -42,7 +50,8 @@ dojo.declare("at.irian.TabletPopupView", null, {
         this.node = placeHolder.childNodes[0];
         this.node.style.display = "none";
 
-        this.origin.parentNode.replaceChild(placeHolder.childNodes[0], this.origin);
+        this.origin.parentNode.replaceChild(this.node, this.origin);
+
 
     },
 
@@ -53,18 +62,18 @@ dojo.declare("at.irian.TabletPopupView", null, {
 
     show: function() {
         /*we work the opacity in the allow css transitional opacity fades*/
-        this.view.node.style.opacity = "1";
-        this.view.node.style.display = "";
+        this.node.style.opacity = "1";
+        this.node.style.display = "";
     },
 
     hide: function() {
-        this.view.node.style.opacity = "0";
-        this.view.node.style.display = "none";
+        this.node.style.opacity = "0";
+        this.node.style.display = "none";
     },
 
     movePopup:function (posX, posY) {
-        this.view.node.style.left = posX + "px";
-        this.view.node.style.top = posY + "px";
+        this.node.style.left = posX + "px";
+        this.node.style.top = posY + "px";
     }
 
 
@@ -88,11 +97,10 @@ dojo.declare("at.irian.TabletPopup", null, {
             this [key] = args[key] || this[key];
         }
 
-        dojo.addOnLoad(dojo.hitch(this, this.postInit()));
+        dojo.addOnLoad(dojo.hitch(this, this.postInit));
     },
 
     postInit: function() {
-        this.view.postInit();
         //we move it out of the way
         this.view.movePopup(-1000, 0);
     },
@@ -119,11 +127,3 @@ dojo.declare("at.irian.TabletPopup", null, {
 
 });
 
-
-
-function initTablePopup() {
-    var popup = new at.irian.TabletPopup({id:"menu1", posX: 100, posY: 100});
-    popup.show();
-}
-
-dojo.addOnLoad(initTablePopup);
