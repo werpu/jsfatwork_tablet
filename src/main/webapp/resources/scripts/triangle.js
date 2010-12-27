@@ -45,7 +45,7 @@ dojo.declare("at.irian.shapes.Triangle", null, {
 
         context.fillStyle = "blue";
 
-        this.drawTriangle(0, 0, 3, context);
+        this.drawTriangle(5, 5, 3, context);
 
         //context.shadowBlur = 10;
         //context.shadowColor = "black";
@@ -68,7 +68,7 @@ dojo.declare("at.irian.shapes.Triangle", null, {
 
         context.beginPath();
         context.moveTo((this.width - offset) >> 1, y);
-        context.lineTo(this.originX, (this.height - offset) - 1);
+        context.lineTo(x, (this.height - offset) - 1);
         context.lineTo((this.width - offset) - 1, (this.height - offset) - 1);
         context.fill();
         context.closePath();
