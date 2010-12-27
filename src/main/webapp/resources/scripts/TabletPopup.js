@@ -1,11 +1,11 @@
 dojo.provide("at.irian.TabletPopupView");
-dojo.declare("at.irina.TabletPopupView", null, {
+dojo.declare("at.irian.TabletPopupView", null, {
 
     id: null,
     node: null,
     origin: null,
-    origin_header: null,
-    origin_footer: null,
+    originHeader: null,
+    originFooter: null,
     query: null,
     styleClass: 'tablet_menu',
 
@@ -24,7 +24,7 @@ dojo.declare("at.irina.TabletPopupView", null, {
     },
 
     postInit: function() {
-        this.origin = this.origin || dojo.byId(this.id) || document.querySelectoryAll(this.query);
+        this.origin = this.origin || dojo.byId(this.id) || document.querySelectorAll(this.query)[0];
 
         this.id = this.id || this.origin.id;
 
@@ -72,7 +72,7 @@ dojo.declare("at.irina.TabletPopupView", null, {
 });
 
 dojo.provide("at.irian.TabletPopup");
-dojo.declare("at.irina.TabletPopup", null, {
+dojo.declare("at.irian.TabletPopup", null, {
 
     view: null,
     posX: 0,
@@ -118,3 +118,12 @@ dojo.declare("at.irina.TabletPopup", null, {
     }
 
 });
+
+
+
+function initTablePopup() {
+    var popup = new at.irian.TabletPopup({id:"menu1", posX: 100, posY: 100});
+    popup.show();
+}
+
+dojo.addOnLoad(initTablePopup);

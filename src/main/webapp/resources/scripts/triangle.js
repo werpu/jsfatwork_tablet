@@ -52,7 +52,7 @@ dojo.declare("at.irian.shapes.Triangle", null, {
 
         context.lineWidth = 2;
         context.lineJoin = "round";
-        context.strokeStyle = black;
+        context.strokeStyle = "black";
         context.stroke();
 
         context.shadowColor = "transparent";
