@@ -39,6 +39,10 @@
         <!--
         -->
     </script>
+    <script type="text/javascript" src="../resources/scripts/PadButtonHandler.js">
+        <!--
+        -->
+    </script>
 
 
 </h:head>
@@ -47,8 +51,7 @@
 
 
     <div class="page_back">
-        &lt;&lt;Back
-        <input type="button">Press me for Menu</input>
+        Back
     </div>
 
     <div class="page">
@@ -180,6 +183,9 @@
                 posX: 10, posY: 70,
                 bubbleOffset: 150
             });
+        var buttonHandler = new at.irian.PadButtonHandler({
+            origin: ".page_back"
+        });
 
         function initTablePopup() {
             popup.show();

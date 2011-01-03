@@ -103,13 +103,31 @@ div.transition_content {
 }
 
 div.page_back {
+    -webkit-box-sizing: border-box;
     position: absolute;
     display: block;
-    left: 40px;
-    top: 15px;
+    left: 3px;
+    top: 3px;
     z-index: 20;
     opacity: 0;
     -webkit-transition: opacity 0.5s linear;
+
+    background-image: url(../images/back_40.png);
+    background-repeat: no-repeat;
+    height: 39px;
+    width: 71px;
+
+    padding-top: 12px;
+    padding-left: 18px;
+
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    cursor:pointer;
+}
+
+div.page_back.down {
+    background-image: url(../images/back_40_pressed.png);
 }
 
 div.navbg {
@@ -178,8 +196,10 @@ div.navbg {
     left: 10px;
     top: -40px;
 
-    background-image: url(../images/bubble.png);
-    width: 28px;
+    background-image:  url(../images/bubble-left.png);
+    background-position: -20px 0px;;
+
+    width: 60px;
     height: 40px;
     z-index:5555;
 }
