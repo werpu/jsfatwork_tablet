@@ -13,7 +13,7 @@ dojo.declare("at.irian.TabletPopupView", null, {
     content: "Default Content",
     footer: "Default Footer",
 
-    template:"<div id='${id}' class='${styleClass}'><canvas class='heading_pointer'></canvas><div class='menu_content'><div class='content_header'>${title}</div><div class='content'>${content}</div><div class='content_footer' >${footer}</div></div>",
+    template:"<div id='${id}_bubble' class='dlg_bubble'></div><div id='${id}_closer' class='dlg_closer'></div><div id='${id}_closer' class='dlg_closer'></div><div id='${id}' class='${styleClass}'><canvas class='heading_pointer'></canvas><div class='menu_content'><div class='content_header'>${title}</div><div class='content'>${content}</div><div class='content_footer' >${footer}</div></div>",
 
     constructor: function(args) {
         args = args || {};
@@ -63,7 +63,7 @@ dojo.declare("at.irian.TabletPopupView", null, {
     show: function() {
         /*we work the opacity in the allow css transitional opacity fades*/
         this.node.style.opacity = "1";
-        this.node.style.display = "";
+        this.node.style.display = "block";
     },
 
     hide: function() {
