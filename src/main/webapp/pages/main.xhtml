@@ -46,8 +46,6 @@
 <h:body>
 
 
-
-
     <div class="page_back">
         &lt;&lt;Back
         <input type="button">Press me for Menu</input>
@@ -171,7 +169,17 @@
         <div id="myfooter">myFooter</div>
     </div>
     <script type="text/javascript">
-        var popup = new at.irian.TabletPopup({origin:"popup", originHeader:"#popup #myheader", originContent: "#popup #myContent", originContent: "#popup #myfooter" , posX: 100, posY: 100});
+        var popup = new at.irian.TabletPopup(
+            {
+                origin:"popup",
+                originHeader:"#popup #myheader",
+                originContent: "#popup #myContent",
+                originFooter: "#popup #myfooter",
+                closer:true,
+                bubble: true ,
+                posX: 10, posY: 70,
+                bubbleOffset: 150
+            });
 
         function initTablePopup() {
             popup.show();

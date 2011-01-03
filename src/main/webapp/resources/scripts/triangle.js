@@ -79,4 +79,4 @@ dojo.declare("at.irian.shapes.Triangle", null, {
 
 });
 
-new at.irian.shapes.Triangle();
+//new at.irian.shapes.Triangle();

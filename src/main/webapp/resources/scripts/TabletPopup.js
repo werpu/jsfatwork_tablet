@@ -13,26 +13,30 @@ dojo.declare("at.irian.TabletPopupView", null, {
     content: "Default Content",
     footer: "Default Footer",
 
-    template:"<div id='${id}_bubble' class='dlg_bubble'></div><div id='${id}_closer' class='dlg_closer'></div><div id='${id}_closer' class='dlg_closer'></div><div id='${id}' class='${styleClass}'><canvas class='heading_pointer'></canvas><div class='menu_content'><div class='content_header'>${title}</div><div class='content'>${content}</div><div class='content_footer' >${footer}</div></div>",
+    closer: true,
+    bubble: true,
+
+
+    bubbleOffset : 12,
+
+    template:"<div id='${id}' class='${styleClass}'><div id='${id}_bubble' class='dlg_bubble'></div><div id='${id}_closer' class='dlg_closer'><img  src='../resources/images/dlg_close.png' width='35' height='35' ></img></div><div class='menu_content'><div class='content_header'>${title}</div><div class='content'>${content}</div><div class='content_footer' >${footer}</div></div>",
 
     constructor: function(args) {
         args = args || {};
 
-
         for (var key in args) {
             this [key] = args[key] || this[key];
         }
-          dojo.addOnLoad(dojo.hitch(this, this.postInit));
+        dojo.addOnLoad(dojo.hitch(this, this.postInit));
     },
 
     postInit: function() {
 
-        this.origin =  dojo.byId(this.origin) || document.querySelectorAll(this.origin)[0];
+        this.origin = dojo.byId(this.origin) || document.querySelectorAll(this.origin)[0];
 
-        this.originContent =  dojo.byId(this.originContent) || document.querySelectorAll(this.originContent)[0];
-        this.originHeader =   dojo.byId(this.originHeader) || document.querySelectorAll(this.originHeader)[0];
-        this.originFooter =   dojo.byId(this.originFooter) || document.querySelectorAll(this.originFooter)[0];
-
+        this.originContent = dojo.byId(this.originContent) || document.querySelectorAll(this.originContent)[0];
+        this.originHeader = dojo.byId(this.originHeader) || document.querySelectorAll(this.originHeader)[0];
+        this.originFooter = dojo.byId(this.originFooter) || document.querySelectorAll(this.originFooter)[0];
 
         this.id = this.id || this.origin.id;
 
@@ -52,7 +56,19 @@ dojo.declare("at.irian.TabletPopupView", null, {
 
         this.origin.parentNode.replaceChild(this.node, this.origin);
 
+        this.closerNode = this.node.querySelectorAll(".dlg_closer")[0];
+        this.bubbleNode = this.node.querySelectorAll(".dlg_bubble")[0];
 
+        //todo check if a relative placement is feasable
+        if (this.closerNode) {
+            this.closerNode.parentNode.removeChild(this.closerNode);
+            document.body.appendChild(this.closerNode);
+            dojo.connect(this.closerNode, "onclick", this, this.hide);
+        }
+        if (this.bubbleNode) {
+            this.bubbleNode.parentNode.removeChild(this.bubbleNode);
+            document.body.appendChild(this.bubbleNode);
+        }
     },
 
 
@@ -64,16 +80,58 @@ dojo.declare("at.irian.TabletPopupView", null, {
         /*we work the opacity in the allow css transitional opacity fades*/
         this.node.style.opacity = "1";
         this.node.style.display = "block";
+
+        if (this.closer && this.closerNode) {
+            this.closerNode.style.opacity = "1";
+            this.closerNode.style.display = "";
+        }
+
+        if (this.bubble && this.bubbleNode) {
+            this.bubbleNode.style.opacity = "1";
+            this.bubbleNode.style.display = "";
+        }
     },
 
     hide: function() {
         this.node.style.opacity = "0";
+        if (this.closer && this.closerNode) {
+            this.closerNode.style.opacity = "0";
+        }
+
+        if (this.bubble && this.bubbleNode) {
+            this.bubbleNode.style.opacity = "0";
+        }
+
+        this._transitionEnd_ = this._transitionEnd_ || dojo.hitch(this, this.hideEnd);
+        this.node.addEventListener("webkitTransitionEnd", this._transitionEnd_);
+    },
+
+    hideEnd: function() {
+        this.node.removeEventListener("webkitTransitionEnd",this._transitionEnd_);
         this.node.style.display = "none";
+        if (this.closer && this.closerNode) {
+            this.closerNode.style.display = "none";
+        }
+        if (this.bubble && this.bubbleNode) {
+            this.bubbleNode.style.display = "none";
+        }
     },
 
     movePopup:function (posX, posY) {
         this.node.style.left = posX + "px";
         this.node.style.top = posY + "px";
+
+        if (this.closer && this.closerNode) {
+             this.closerNode.style.left = (posX-18) + "px";
+             this.closerNode.style.top = (posY-18) + "px";
+        }
+
+        if (this.bubble && this.bubbleNode) {
+            this.bubbleNode.style.left = (posX+this.bubbleOffset) + "px";
+            this.bubbleNode.style.top = (posY-30) + "px";
+
+        }
+
     }
 
 
