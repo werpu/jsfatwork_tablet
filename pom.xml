@@ -346,26 +346,7 @@
 
                 </dependencies>
             </plugin>
-            <!-- ebean orm enhancer -->
-            <plugin>
-                <groupId>org.avaje</groupId>
-                <artifactId>ebean-maven-enhancement-plugin</artifactId>
-                <version>${ebean.version}</version>
-                <executions>
-                    <execution>
-                        <id>main</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                        <configuration>
-                            <packages>at.irian.webstack.middle.orm</packages>
-                            <transformArgs>debug=1</transformArgs>
 
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
         </plugins>
         <finalName>ipadscratchpath</finalName>
