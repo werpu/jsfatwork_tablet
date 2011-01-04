@@ -109,6 +109,18 @@ dojo.declare("at.irian.NavigationView", null, {
     renderView: function(elem) {
         var elem = document.getElementById(elem) || document.querySelectorAll("." + elem)[0];
         elem.innerHTML = this.buildView();
+
+        //now we add the behavior we need
+        this.applyButtonBehavior(elem);
+    },
+
+    applyButtonBehavior: function(elem) {
+        var elems = elem.querySelectorAll("li");
+        for (var cnt = elems.length - 1; cnt >= 0; cnt--) {
+            new at.irian.PadButtonHandler({
+                origin: elems[cnt]
+            });
+        }
     },
 
     /**
@@ -127,12 +139,13 @@ dojo.declare("at.irian.NavigationView", null, {
             //elem.style.webkitTransform = "translate(-500px)";
             elem.style.marginLeft = "-500px";
             elem.style.opacity = 0;
-        }
+        };
 
         var transitionEnd = function() {
 
             elem.removeEventListener("webkitTransitionEnd", transitionEnd);
             elem.innerHTML = _t.buildView();
+            _t.applyButtonBehavior(elem);
             dojo.removeClass(elem, "transition_go");
             dojo.addClass(elem, "transition_content");
             elem.style.marginLeft = "0px";
@@ -164,6 +177,7 @@ dojo.declare("at.irian.NavigationView", null, {
         var transitionEnd = function() {
             elem.removeEventListener("webkitTransitionEnd", transitionEnd);
             elem.innerHTML = _t.buildView();
+            _t.applyButtonBehavior(elem);
             dojo.removeClass(elem, "transition_go");
             dojo.addClass(elem, "transition_content");
             elem.style.marginLeft = "0px";

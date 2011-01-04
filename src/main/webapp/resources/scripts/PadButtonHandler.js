@@ -18,14 +18,16 @@ dojo.declare("at.irian.PadButtonHandler", null, {
             this [key] = args[key] || this[key];
         }
         dojo.addOnLoad(dojo.hitch(this, this.postInit));
-        this.onclick = this.onclick || function() {};
+
     },
 
     postInit: function() {
         this.node = dojo.byId(this.origin) || document.querySelectorAll(this.origin)[0];
         this.id = this.node.id;
         this._onmousedown_ = dojo.connect(this.node, "onmousedown", this, this.onmousedown);
-        this._onclick_ = dojo.connect(this.node, "onclick", this, this.onclick);
+        if(this.onclick) {
+            this._onclick_ = dojo.connect(this.node, "onclick", this, this.onclick);
+        }
     },
 
 

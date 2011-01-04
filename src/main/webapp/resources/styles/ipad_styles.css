@@ -37,6 +37,7 @@ div.header, div.nav, div.navbg, div.aside, div.section, div.article {
 .sidebar {
     width: 300px;
     margin-right: 1px;
+
 }
 
 .content {
@@ -65,9 +66,18 @@ div.header {
 .navScroller > li {
     padding: 0 10px;
     border-bottom: 1px solid #ccc;
+
     min-height: 40px;
     line-height: 40px;
+
+    -webkit-box-shadow: white 0px 1px 0px inset;
 }
+
+.navScroller > li.down {
+    -webkit-box-shadow: #858f9d 0px 1px 0px inset;
+    background-color: #ddd;
+}
+
 
 .contentScroller {
     -webkit-box-sizing: border-box;
@@ -81,8 +91,12 @@ div.navbg, div.article, div.nav {
     left: 0;
     right: 0;
     font-size: 15px;
-    background: #fff;
 
+
+}
+
+div.article {
+  background: #fff;
 }
 
 div.nav {
@@ -138,7 +152,7 @@ div.page_back.down {
 
 div.navbg {
 
-    background-color: white;
+    background-color: #eee;
     display: block;
 
     padding: 0px;
@@ -313,7 +327,6 @@ about button
     -webkit-box-shadow: white 0px 1px 0px inset;
     border: 1px solid;
     border-color: #858f9d;
-
 
     -webkit-transition: all 0.2s linear;
     float: right;
