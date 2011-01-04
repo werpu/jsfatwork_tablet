@@ -115,9 +115,7 @@ div.page_back {
     padding-top: 12px;
     padding-left: 18px;
 
-
 }
-
 
 div.button_back {
     position: absolute;
@@ -295,7 +293,32 @@ about button
 
 }
 
+/*search field*/
+.search_field {
+    z-index: 5555;
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    width: 220px;
+}
 
-input.search {
+.search_field input {
+    width: 100px;
+    height: 22px;
+    padding-left: 5px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
 
+    -webkit-box-shadow: white 0px 1px 0px inset;
+    border: 1px solid;
+    border-color: #858f9d;
+
+
+    -webkit-transition: all 0.2s linear;
+    float: right;
+}
+
+.search_field input:focus {
+    width: 200px;
 }
