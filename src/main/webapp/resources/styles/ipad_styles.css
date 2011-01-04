@@ -104,12 +104,7 @@ div.transition_content {
 
 div.page_back {
     -webkit-box-sizing: border-box;
-    position: absolute;
-    display: block;
-    left: 3px;
-    top: 3px;
-    z-index: 20;
-    opacity: 0;
+
     -webkit-transition: opacity 0.5s linear;
 
     background-image: url(../images/back_40.png);
@@ -120,10 +115,23 @@ div.page_back {
     padding-top: 12px;
     padding-left: 18px;
 
+
+}
+
+
+div.button_back {
+    position: absolute;
+    display: block;
+    left: 10px;
+    top: 10px;
+    z-index: 5555;
+    opacity: 0;
+
     font-weight: bold;
     text-align: center;
     text-shadow: 0 1px 0 #fff;
-    cursor:pointer;
+    color: #717880;
+    cursor: pointer;
 }
 
 div.page_back.down {
@@ -143,27 +151,29 @@ div.navbg {
 /*menu top triangle, fixed with gradient 0.5 transparent (probably image for top best*/
 
 .tablet_bt_normal {
-    border: 1px solid rgb(200, 199, 222); /*TODO proper shadow styling*/
-    -moz-box-shadow: inset 0 0 5px rgb(200, 199, 222);
-    -webkit-box-shadow: inset 0 0 5px rgb(200, 199, 222);
-    box-shadow: inner 0 0 5px rgb(200, 199, 222);
+    -webkit-box-shadow: white 0px 1px 0px inset;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: #858f9d; /*gradients done with the excellent http://gradients.glrzad.com/*/
+    background: #424242 -webkit-gradient(linear, 0 0, 0 100, from(#f4f5f7), to(#999da9));
+    z-index: 5555;
+    padding: 5px;
+    cursor: pointer;
 
-    -webkit-border-radius: 3px; /*todo border color height and gradient*/
-
-/*gradients done with the excellent http://gradients.glrzad.com/*/
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.32, rgb(82, 73, 156)), color-stop(0.66, rgb(132, 127, 201)), color-stop(0.83, rgb(200, 199, 222)));
-    background-image: -moz-linear-gradient(center bottom, rgb(82, 73, 156) 32%, rgb(132, 127, 201) 66%, rgb(200, 199, 222) 83%);
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    color: #717880;
 }
 
 /*same as std button but thicker shadow and a slight nuance darker (TODO do this somewhat darker)*/
 /*note should dark in at mouseDown, and should lighten up at mouseUp or mouseLeave*/
-.tablet_bt_normal_pressed {
-    -moz-box-shadow: inset 0 0 10px rgb(200, 199, 222);
-    -webkit-box-shadow: inset 0 0 10px rgb(200, 199, 222);
-    box-shadow: inner 0 0 10px rgb(200, 199, 222);
+.tablet_bt_normal.down {
+    -webkit-box-shadow: #858f9d 0px 1px 0px inset;
+    border-radius: 5px;
 
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.40, rgb(82, 73, 156)), color-stop(0.72, rgb(132, 127, 201)), color-stop(0.91, rgb(200, 199, 222)));
-    background-image: -moz-linear-gradient(center bottom, rgb(82, 73, 156) 40%, rgb(132, 127, 201) 72%, rgb(200, 199, 222) 91%);
+    background-color: #a6b2b5;
+    color: #717880;
 }
 
 .menu_triangle {
@@ -176,6 +186,15 @@ div.navbg {
 }
 
 /**
+about button
+*/
+.about {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/**
 * Dialog floater
 */
 .dlg_closer {
@@ -184,8 +203,9 @@ div.navbg {
     opacity: 1;
     position: absolute;
 
-    z-index:9999;
+    z-index: 9999;
 }
+
 .dlg_bubble {
     -webkit-transition: opacity 0.5s linear;
 
@@ -196,12 +216,12 @@ div.navbg {
     left: 10px;
     top: -40px;
 
-    background-image:  url(../images/bubble-left.png);
+    background-image: url(../images/bubble-left.png);
     background-position: -20px 0px;;
 
     width: 60px;
     height: 40px;
-    z-index:5555;
+    z-index: 5555;
 }
 
 .tablet_menu {
@@ -231,7 +251,7 @@ div.navbg {
 }
 
 .tablet_menu .content_header, .tablet_menu .content_footer {
-     -webkit-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     background: #424242 -webkit-gradient(linear, 0 0, 0 100, from(#f4f5f7), to(#999da9));
 
@@ -272,5 +292,10 @@ div.navbg {
     top: 30px;
     bottom: 30px;
     right: 0px;
+
+}
+
+
+input.search {
 
 }

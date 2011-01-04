@@ -120,7 +120,7 @@ dojo.declare("at.irian.NavigationView", null, {
         var _t = this;
 
         var transitionStart = function() {
-            document.querySelectorAll(".page_back")[0].style.opacity = _t.controller.model.isFirst() ? 0 : 1;
+            document.querySelectorAll(".button_back")[0].style.opacity = _t.controller.model.isFirst() ? 0 : 1;
 
             dojo.removeClass(elem, "transition_content")
             dojo.addClass(elem, "transition_go");
@@ -154,7 +154,7 @@ dojo.declare("at.irian.NavigationView", null, {
     fadeinRight: function(elem) {
         var _t = this;
         var transitionStart = function() {
-            document.querySelectorAll(".page_back")[0].style.opacity = _t.controller.model.isFirst() ? 0 : 1;
+            document.querySelectorAll(".button_back")[0].style.opacity = _t.controller.model.isFirst() ? 0 : 1;
 
             dojo.removeClass(elem, "transition_content")
             dojo.addClass(elem, "transition_go");
@@ -218,7 +218,7 @@ dojo.declare("at.irian.FadeController", null, {
 
     pageInit: function() {
         var _t = this;
-        var ret = document.querySelectorAll(".page_back")[0];
+        var ret = document.querySelectorAll(".button_back")[0];
         ret.onclick = function() {
             _t.model.goUp();
             _t.view.fadeinRight(_t.elem);

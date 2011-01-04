@@ -31,7 +31,7 @@
         <!--
         -->
     </script>
-    <script type="text/javascript" src="../resources/scripts/Triangle.js">
+    <script type="text/javascript" src="../resources/scripts/shapes/Triangle.js">
         <!--
         -->
     </script>
@@ -50,8 +50,11 @@
 <h:body>
 
 
-    <div class="page_back">
+    <div class="button_back tablet_bt_normal">
         Back
+    </div>
+    <div class="about tablet_bt_normal">
+        About
     </div>
 
     <div class="page">
@@ -184,7 +187,11 @@
                 bubbleOffset: 150
             });
         var buttonHandler = new at.irian.PadButtonHandler({
-            origin: ".page_back"
+            origin: ".button_back"
+        });
+
+        var aboutButtonHandler = new at.irian.PadButtonHandler({
+            origin: ".about"
         });
 
         function initTablePopup() {
