@@ -13,8 +13,8 @@ dojo.declare("at.irian.TabletPopupView", null, {
     content: "Default Content",
     footer: "Default Footer",
 
-    closer: true,
-    bubble: true,
+    closer: false,
+    bubble: false,
 
 
     bubbleOffset : 12,
@@ -125,8 +125,16 @@ dojo.declare("at.irian.TabletPopupView", null, {
             this.bubbleNode.style.display = "";
         }
 
-        this._globalOnClick_ = dojo.connect(window, "onclick", this, this.hide);
-        this._localOnClick_ = dojo.connect(this.node, "onclick", this, this.stopOnClick);
+        var attachEvents = dojo.hitch(this, function() {
+
+            this._globalOnClick_ = dojo.connect(window, "onclick", this, this.hide);
+            this._localOnClick_ = dojo.connect(this.node, "onclick", this, this.stopOnClick);
+
+        });
+        //we cannot work over the events here, it is too flakey
+        //a timer suffices to deal with the delay of the pressed and click handling
+        setTimeout(attachEvents, 300);
+
     },
 
     stopOnClick: function(ev) {

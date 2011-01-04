@@ -25,7 +25,10 @@ dojo.declare("at.irian.PadButtonHandler", null, {
         this.node = dojo.byId(this.origin) || document.querySelectorAll(this.origin)[0];
         this.id = this.node.id;
         this._onmousedown_ = dojo.connect(this.node, "onmousedown", this, this.onmousedown);
+        this._onclick_ = dojo.connect(this.node, "onclick", this, this.onclick);
     },
+
+
 
     onmousedown: function(evt) {
         evt.stopPropagation();

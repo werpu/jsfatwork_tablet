@@ -58,7 +58,7 @@
     </div>
 
     <div class="search_field">
-        <input type="text" id="search_field" />
+        <input type="text" id="search_field"/>
     </div>
 
     <div class="page">
@@ -178,24 +178,45 @@
         <div id="myContent">Spacksack</div>
         <div id="myfooter">myFooter</div>
     </div>
+
+    <div id="about" class="drop_down">
+        <div id="aboutheader">&Uuml;ber</div>
+        <div id="aboutcontent">Über dieses Buch</div>
+        <div id="aboutfooter"></div>
+    </div>
+
     <script type="text/javascript">
         var popup = new at.irian.TabletPopup(
-            {
-                origin:"popup",
-                originHeader:"#popup #myheader",
-                originContent: "#popup #myContent",
-                originFooter: "#popup #myfooter",
-                closer:true,
-                bubble: true ,
-                posX: 10, posY: 70,
-                bubbleOffset: 150
-            });
+        {
+            origin:"popup",
+            originHeader:"#popup #myheader",
+            originContent: "#popup #myContent",
+            originFooter: "#popup #myfooter",
+            closer:true,
+            bubble: true ,
+            posX: 10, posY: 70,
+            bubbleOffset: 150
+        });
+
+        var about = new at.irian.TabletPopup(
+        {
+            origin:"about",
+            originHeader:"#about #aboutheader",
+            originContent: "#about #aboutcontent",
+            originFooter: "#about #aboutfooter",
+            closer:true,
+            posX: 200, posY: 50
+        });
+
         var buttonHandler = new at.irian.PadButtonHandler({
             origin: ".button_back"
         });
 
         var aboutButtonHandler = new at.irian.PadButtonHandler({
-            origin: ".about"
+            origin: ".about",
+            onclick: function() {
+                about.show();
+            }
         });
 
         function initTablePopup() {
